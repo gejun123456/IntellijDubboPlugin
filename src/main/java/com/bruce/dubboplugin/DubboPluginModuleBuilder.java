@@ -1,9 +1,11 @@
 package com.bruce.dubboplugin;
 
+import com.bruce.dubboplugin.dto.GenerateContentContext;
 import com.bruce.dubboplugin.dto.PreConfig;
 import com.bruce.dubboplugin.dto.UserChooseDependency;
 import com.bruce.dubboplugin.form.ChooseDubboConfigurationStep;
 import com.bruce.dubboplugin.form.DubboModuleWizardStep;
+import com.bruce.dubboplugin.helper.GenerateContentUtils;
 import com.google.gson.Gson;
 import com.intellij.ide.util.projectWizard.*;
 import com.intellij.openapi.Disposable;
@@ -46,8 +48,13 @@ public class DubboPluginModuleBuilder extends ModuleBuilder implements SourcePat
             rootModel.inheritSdk();
         }
 
-        System.out.println("nimeiba");
+        System.out.println("start to create folder in path");
 
+        GenerateContentContext contentContext = new GenerateContentContext();
+        contentContext.setProject(project);
+        contentContext.setUserChooseDependency(userChooseDependency);
+        contentContext.setRoot(root);
+        GenerateContentUtils.generateFiles(contentContext);
     }
 
     private VirtualFile createAndGetContentEntry() {
@@ -137,6 +144,16 @@ public class DubboPluginModuleBuilder extends ModuleBuilder implements SourcePat
         this.preConfig = preConfig;
     }
 
+    @Nullable
+    @Override
+    public ModuleWizardStep modifySettingsStep(@NotNull SettingsStep settingsStep) {
+        ModuleNameLocationSettings moduleNameLocationSettings = settingsStep.getModuleNameLocationSettings();
+        if (moduleNameLocationSettings != null && userChooseDependency != null && userChooseDependency.getArtifactId() != null) {
+            moduleNameLocationSettings.setModuleName(userChooseDependency.getArtifactId());
+//            moduleNameLocationSettings.setModuleContentRoot(moduleNameLocationSettings.getModuleContentRoot() + "/" + userChooseDependency.getArtifactId());
+        }
+        return super.modifySettingsStep(settingsStep);
+    }
 
     public UserChooseDependency getUserChooseDependency() {
         return userChooseDependency;
