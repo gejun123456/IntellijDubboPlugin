@@ -1,5 +1,10 @@
 package com.bruce.dubboplugin;
 
+import com.bruce.dubboplugin.dto.PreConfig;
+import com.bruce.dubboplugin.dto.UserChooseDependency;
+import com.bruce.dubboplugin.form.ChooseDubboConfigurationStep;
+import com.bruce.dubboplugin.form.DubboModuleWizardStep;
+import com.google.gson.Gson;
 import com.intellij.ide.util.projectWizard.*;
 import com.intellij.openapi.Disposable;
 import com.intellij.openapi.module.JavaModuleType;
@@ -23,21 +28,27 @@ import java.util.Collections;
 import java.util.List;
 
 public class DubboPluginModuleBuilder extends ModuleBuilder implements SourcePathsBuilder {
+
+    private PreConfig preConfig;
+
+    private UserChooseDependency userChooseDependency;
+
     @Override
     public void setupRootModel(ModifiableRootModel rootModel) throws ConfigurationException {
+
+        String s = new Gson().toJson(userChooseDependency);
+        System.out.println("set up root model json is:" + s);
         Project project = rootModel.getProject();
-
         VirtualFile root = createAndGetContentEntry();
-
-        if(myJdk!=null){
+        if (myJdk != null) {
             rootModel.setSdk(myJdk);
         } else {
-        rootModel.inheritSdk();
-    }
+            rootModel.inheritSdk();
+        }
 
         System.out.println("nimeiba");
 
-}
+    }
 
     private VirtualFile createAndGetContentEntry() {
         String path = FileUtil.toSystemDependentName(getContentEntryPath());
@@ -89,21 +100,21 @@ public class DubboPluginModuleBuilder extends ModuleBuilder implements SourcePat
 
     @Override
     public boolean isSuitableSdkType(SdkTypeId sdkType) {
-        return sdkType== JavaSdk.getInstance();
+        return sdkType == JavaSdk.getInstance();
     }
 
 
     @Override
     public ModuleWizardStep[] createWizardSteps(@NotNull WizardContext wizardContext, @NotNull ModulesProvider modulesProvider) {
         return new ModuleWizardStep[]{
-                new DubboModuleWizardStep(this,wizardContext,!wizardContext.isNewWizard())
+                new DubboModuleWizardStep(this, wizardContext, !wizardContext.isNewWizard())
         };
     }
 
     @Nullable
     @Override
     public ModuleWizardStep getCustomOptionsStep(WizardContext context, Disposable parentDisposable) {
-        return new ChooseDubboConfigurationStep(this,null);
+        return new ChooseDubboConfigurationStep(this, null);
     }
 
     @Override
@@ -115,5 +126,23 @@ public class DubboPluginModuleBuilder extends ModuleBuilder implements SourcePat
     @Override
     public String getBuilderId() {
         return getClass().getName();
+    }
+
+
+    public PreConfig getPreConfig() {
+        return preConfig;
+    }
+
+    public void setPreConfig(PreConfig preConfig) {
+        this.preConfig = preConfig;
+    }
+
+
+    public UserChooseDependency getUserChooseDependency() {
+        return userChooseDependency;
+    }
+
+    public void setUserChooseDependency(UserChooseDependency userChooseDependency) {
+        this.userChooseDependency = userChooseDependency;
     }
 }
