@@ -1,6 +1,7 @@
 package com.bruce.dubboplugin;
 
 import com.intellij.ide.util.projectWizard.*;
+import com.intellij.openapi.Disposable;
 import com.intellij.openapi.module.JavaModuleType;
 import com.intellij.openapi.module.ModuleType;
 import com.intellij.openapi.module.StdModuleTypes;
@@ -9,6 +10,7 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.projectRoots.JavaSdk;
 import com.intellij.openapi.projectRoots.SdkTypeId;
 import com.intellij.openapi.roots.ModifiableRootModel;
+import com.intellij.openapi.roots.ui.configuration.ModulesProvider;
 import com.intellij.openapi.util.Pair;
 import com.intellij.openapi.util.io.FileUtil;
 import com.intellij.openapi.vfs.LocalFileSystem;
@@ -88,6 +90,25 @@ public class DubboPluginModuleBuilder extends ModuleBuilder implements SourcePat
     @Override
     public boolean isSuitableSdkType(SdkTypeId sdkType) {
         return sdkType== JavaSdk.getInstance();
+    }
+
+
+    @Override
+    public ModuleWizardStep[] createWizardSteps(@NotNull WizardContext wizardContext, @NotNull ModulesProvider modulesProvider) {
+        return new ModuleWizardStep[]{
+                new DubboModuleWizardStep(this,wizardContext,!wizardContext.isNewWizard())
+        };
+    }
+
+    @Nullable
+    @Override
+    public ModuleWizardStep getCustomOptionsStep(WizardContext context, Disposable parentDisposable) {
+        return new ChooseDubboConfigurationStep(this,null);
+    }
+
+    @Override
+    public ModuleWizardStep modifyStep(SettingsStep settingsStep) {
+        return super.modifyStep(settingsStep);
     }
 
     @Nullable
