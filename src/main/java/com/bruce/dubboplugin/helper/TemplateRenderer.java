@@ -68,6 +68,7 @@ public class TemplateRenderer {
             Template template = getTemplate(name);
             return template.execute(model);
         } catch (Exception e) {
+            System.out.println(CommonUtils.printStackTrace(e));
             log.error("Cannot render: " + name, e);
             throw new IllegalStateException("Cannot render template", e);
         }

@@ -110,8 +110,10 @@ public class DubboModuleWizardStep extends ModuleWizardStep {
 
         dependency.setBootVersion((String) bootVersionCombox.getSelectedItem());
         for (JCheckBox jCheckBox : myJCheckBoxList) {
-            String s = myJcheckBoxToDependencyMap.get(jCheckBox);
-            dependencyList.add(s);
+            if(jCheckBox.isSelected()) {
+                String s = myJcheckBoxToDependencyMap.get(jCheckBox);
+                dependencyList.add(s);
+            }
         }
 
         dependency.setGroupId(groupIdText.getText());

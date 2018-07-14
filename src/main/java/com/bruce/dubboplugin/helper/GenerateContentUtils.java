@@ -36,15 +36,16 @@ public class GenerateContentUtils {
         }
 
 
-        String applicationName = userChooseDependency.getArtifactId();
+        String applicationName = userChooseDependency.getArtifactId() + "Application";
 
-        String pacakgeName = userChooseDependency.getGroupId();
+        String pacakgeName = userChooseDependency.getGroupId() + "." + userChooseDependency.getArtifactId();
 
 
         if (userChooseDependency.isUseGradle()) {
             writeText(new File(dir, "build.gradle"), TemplateUtils.processToString("gradle.ftl", null));
         } else {
-            writeText(new File(dir, "pom.xml"), TemplateRenderer.INSTANCE.process("starter-pom.xml", model));
+            String process = TemplateRenderer.INSTANCE.process("starter-pom.xml", model);
+            writeText(new File(dir, "pom.xml"), process);
         }
 
         String codeLocation = language;
@@ -65,7 +66,7 @@ public class GenerateContentUtils {
         //create the main class for springboot application
         String extension = ("kotlin".equals(language) ? "kt" : language);
         write(new File(src, applicationName + "." + extension),
-                "Application" + extension, model);
+                "Application." + extension, model);
 
 //        generateGitIgnore();
         root.refresh(false, true);
@@ -98,16 +99,16 @@ public class GenerateContentUtils {
                 filterDependencies(dependencies, Dependency.SCOPE_PROVIDED));
         model.put("testDependencies",
                 filterDependencies(dependencies, Dependency.SCOPE_TEST));
-        Map<String, String> buildPropertyJava = Maps.newHashMap();
+        Map<String, String> buildPropertyJava = Maps.newLinkedHashMap();
         buildPropertyJava.put("java.version", "1.8");
-        model.put("buildPropertiesVersions", buildPropertyJava);
+        model.put("buildPropertiesVersions", buildPropertyJava.entrySet());
 
-        Map<String, String> buildPropertyMaven = Maps.newHashMap();
+        Map<String, String> buildPropertyMaven = Maps.newLinkedHashMap();
 
         buildPropertyMaven.put("project.build.sourceEncoding", "UTF-8");
         buildPropertyMaven.put("project.reporting.outputEncoding", "UTF-8");
 
-        model.put("buildPropertiesMaven", buildPropertyMaven);
+        model.put("buildPropertiesMaven", buildPropertyMaven.entrySet());
 
         model.put("dependencyManagementPluginVersion", "0.6.0.RELEASE");
 
@@ -183,7 +184,7 @@ public class GenerateContentUtils {
     }
 
     private static void write(File file, String s, Map<String, Object> o) {
-        writeText(file,TemplateRenderer.INSTANCE.process(s, o));
+        writeText(file, TemplateRenderer.INSTANCE.process(s, o));
     }
 
 
