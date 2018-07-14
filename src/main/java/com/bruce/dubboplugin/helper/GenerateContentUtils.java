@@ -70,6 +70,11 @@ public class GenerateContentUtils {
         write(new File(src, applicationName + "." + extension),
                 "Application." + extension, model);
 
+        File resources = new File(dir, "src/main/resources");
+        resources.mkdirs();
+        write(new File(resources, "application.properties"), "application.properties", model);
+
+
 //        generateGitIgnore();
         root.refresh(false, true);
 
