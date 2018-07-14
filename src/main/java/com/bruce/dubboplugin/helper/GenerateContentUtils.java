@@ -9,6 +9,8 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VfsUtil;
 import com.intellij.openapi.vfs.VirtualFile;
 import org.apache.commons.io.IOUtils;
+import org.jetbrains.idea.maven.project.MavenProjectsManager;
+import org.jetbrains.idea.maven.utils.MavenUtil;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -70,6 +72,11 @@ public class GenerateContentUtils {
 
 //        generateGitIgnore();
         root.refresh(false, true);
+
+//        if (userChooseDependency.isUseMaven()) {
+//            List<VirtualFile> pomFiles = MavenUtil.streamPomFiles(project, project.getBaseDir()).collect(Collectors.toList());
+//            MavenProjectsManager.getInstance(project).addManagedFilesOrUnignore(pomFiles);
+//        }
 
     }
 

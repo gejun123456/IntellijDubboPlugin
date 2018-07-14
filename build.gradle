@@ -31,6 +31,7 @@ compileTestKotlin {
 }
 intellij {
     version 'IU-2018.1'
+    plugins 'Maven'
 }
 patchPluginXml {
     changeNotes """
