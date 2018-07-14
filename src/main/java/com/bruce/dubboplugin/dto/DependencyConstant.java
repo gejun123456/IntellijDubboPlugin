@@ -18,4 +18,5 @@ public class DependencyConstant {
     public static final String SPRING_RETRY = "springretry";
 
     public static final String ZOOKEEPER = "zookeeper";
+    public static final String DUBBO = "dubbo";
 }
