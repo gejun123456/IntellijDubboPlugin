@@ -2,27 +2,24 @@ package com.bruce.dubboplugin.helper;
 
 import com.bruce.dubboplugin.dto.GenerateContentContext;
 import com.bruce.dubboplugin.dto.UserChooseDependency;
-import com.github.rjeschke.txtmark.Run;
-import com.intellij.ide.ui.EditorOptionsTopHitProvider;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.vfs.LocalFileSystem;
 import com.intellij.openapi.vfs.VfsUtil;
+import com.intellij.openapi.vfs.VirtualFile;
 import org.apache.commons.io.IOUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.nio.charset.Charset;
 import java.util.Map;
 
 public class GenerateContentUtils {
     public static void generateFiles(GenerateContentContext contentContext) {
         //try to only use with file api, so that will be really easy to test
         Project project = contentContext.getProject();
-
+        VirtualFile root = contentContext.getRoot();
         String dir = project.getBasePath();
         UserChooseDependency userChooseDependency = contentContext.getUserChooseDependency();
+        Map<String,Object> model = resolveModel(userChooseDependency);
         File projectFile = new File(dir);
         if (!projectFile.exists()) {
             projectFile.mkdirs();
@@ -64,8 +61,13 @@ public class GenerateContentUtils {
                 "Application2." + extension, null);
 
 //        generateGitIgnore();
+        root.refresh(false,true);
 
-        LocalFileSystem.getInstance().refreshWithoutFileWatcher(true);
+    }
+
+    private static Map<String, Object> resolveModel(UserChooseDependency userChooseDependency) {
+        //todo need fix this
+        return null;
     }
 
     private static void write(File file, String s, Map<String, Object> o) {

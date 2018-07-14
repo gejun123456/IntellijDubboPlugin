@@ -24,7 +24,7 @@ public class TemplateUtils {
     }
 
 
-    public static String processToString(String templateName, Map<String, Object> root) {
+    public static String processToString(String templateName, Object root) {
         try {
             Template template = configuration.getTemplate(templateName);
             StringWriter out = new StringWriter();
