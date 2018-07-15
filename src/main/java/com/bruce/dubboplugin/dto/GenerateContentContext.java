@@ -8,9 +8,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class GenerateContentContext {
-    private Project project;
 
     private UserChooseDependency userChooseDependency;
 
-    private VirtualFile root;
+    private String rootPath;
 }

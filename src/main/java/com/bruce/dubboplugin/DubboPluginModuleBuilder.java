@@ -22,6 +22,7 @@ import com.intellij.openapi.util.Pair;
 import com.intellij.openapi.util.io.FileUtil;
 import com.intellij.openapi.vfs.LocalFileSystem;
 import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.platform.PlatformProjectOpenProcessor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -42,19 +43,15 @@ public class DubboPluginModuleBuilder extends ModuleBuilder implements SourcePat
         System.out.println("set up root model json is:" + s);
         Project project = rootModel.getProject();
         VirtualFile root = createAndGetContentEntry();
+        rootModel.addContentEntry(root);
         if (myJdk != null) {
             rootModel.setSdk(myJdk);
         } else {
             rootModel.inheritSdk();
         }
-
         System.out.println("start to create folder in path");
 
-        GenerateContentContext contentContext = new GenerateContentContext();
-        contentContext.setProject(project);
-        contentContext.setUserChooseDependency(userChooseDependency);
-        contentContext.setRoot(root);
-        GenerateContentUtils.generateFiles(contentContext);
+
     }
 
     private VirtualFile createAndGetContentEntry() {
@@ -161,5 +158,16 @@ public class DubboPluginModuleBuilder extends ModuleBuilder implements SourcePat
 
     public void setUserChooseDependency(UserChooseDependency userChooseDependency) {
         this.userChooseDependency = userChooseDependency;
+    }
+
+
+    @Nullable
+    @Override
+    public Project createProject(String name, String path) {
+        GenerateContentContext contentContext = new GenerateContentContext();
+        contentContext.setUserChooseDependency(userChooseDependency);
+        contentContext.setRootPath(path);
+        GenerateContentUtils.generateFiles(contentContext);
+        return super.createProject(name,path);
     }
 }

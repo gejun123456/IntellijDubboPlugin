@@ -9,8 +9,6 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VfsUtil;
 import com.intellij.openapi.vfs.VirtualFile;
 import org.apache.commons.io.IOUtils;
-import org.jetbrains.idea.maven.project.MavenProjectsManager;
-import org.jetbrains.idea.maven.utils.MavenUtil;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -22,9 +20,7 @@ import java.util.stream.Collectors;
 public class GenerateContentUtils {
     public static void generateFiles(GenerateContentContext contentContext) {
         //try to only use with file api, so that will be really easy to test
-        Project project = contentContext.getProject();
-        VirtualFile root = contentContext.getRoot();
-        String dir = project.getBasePath();
+        String dir = contentContext.getRootPath();
         UserChooseDependency userChooseDependency = contentContext.getUserChooseDependency();
         Map<String, Object> model = resolveModel(userChooseDependency);
         File projectFile = new File(dir);
@@ -76,7 +72,7 @@ public class GenerateContentUtils {
 
 
 //        generateGitIgnore();
-        root.refresh(false, true);
+//        root.refresh(false, true);
 
 //        if (userChooseDependency.isUseMaven()) {
 //            List<VirtualFile> pomFiles = MavenUtil.streamPomFiles(project, project.getBaseDir()).collect(Collectors.toList());
