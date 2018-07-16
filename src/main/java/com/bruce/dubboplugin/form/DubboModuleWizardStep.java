@@ -43,6 +43,7 @@ public class DubboModuleWizardStep extends ModuleWizardStep {
     private JCheckBox providerCheckBox;
     private JTextField demoApiTextField;
     private JTextField demoProviderTextField;
+    private JCheckBox pageHelperCheckBox;
 
 
     private List<JCheckBox> myJCheckBoxList = Lists.newArrayList();
