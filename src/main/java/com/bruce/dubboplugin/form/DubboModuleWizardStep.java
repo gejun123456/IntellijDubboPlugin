@@ -37,8 +37,13 @@ public class DubboModuleWizardStep extends ModuleWizardStep {
     private JCheckBox commonsLang3CheckBox;
     private JCheckBox retryCheckBox;
     private JCheckBox zookeeperCheckBox;
-    private JCheckBox notImplementedCheckBox;
+    private JCheckBox hikariCheckBox;
     private JPanel myPanel;
+    private JCheckBox cosumerCheckBox;
+    private JCheckBox providerCheckBox;
+    private JTextField demoApiTextField;
+    private JTextField demoProviderTextField;
+
 
     private List<JCheckBox> myJCheckBoxList = Lists.newArrayList();
     private Map<String, JCheckBox> myDependecyToCheckBoxMap = Maps.newHashMap();
