@@ -23,6 +23,5 @@
         <{{key}}>{{#value}}{{.}}{{/value}}</{{key}}>
             {{/buildPropertiesMaven}}
             {{#buildPropertiesVersions}}
-    <{{key}}>{{#value}}{{.}}{{/value}}</{{key}}>
-        {{/buildPropertiesVersions}}
-        </properties>
+        <{{key}}>{{#value}}{{.}}{{/value}}</{{key}}> {{/buildPropertiesVersions}}
+    </properties>

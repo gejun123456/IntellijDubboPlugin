@@ -21,4 +21,5 @@ public class DependencyConstant {
     public static final String DUBBO = "dubbo";
 
     public static final String WEB_TOMCAT = "webtomcat";
+    public static final String PAGE_HELPER = "pagehelper";
 }

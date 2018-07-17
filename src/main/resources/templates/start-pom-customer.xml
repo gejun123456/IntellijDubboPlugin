@@ -25,7 +25,7 @@
 <dependency>
     <groupId>com.alibaba.spring.boot</groupId>
     <artifactId>dubbo-spring-boot-starter</artifactId>
-    <version>{{#dubboSpringbootVersion}}</version>
+    <version>{{dubboSpringbootVersion}}</version>
 </dependency>
 {{#compileDependencies}}
 <dependency>

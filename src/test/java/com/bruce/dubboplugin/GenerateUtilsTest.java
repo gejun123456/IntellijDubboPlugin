@@ -11,7 +11,7 @@ import java.util.Arrays;
 
 public class GenerateUtilsTest {
     @Test
-    public void testGenerateFiles(){
+    public void testGenerateFilesAsProviderWithNoDependency(){
         GenerateContentContext contentContext = new GenerateContentContext();
         UserChooseDependency userChooseDependency = new UserChooseDependency();
         userChooseDependency.setUseMaven(true);
