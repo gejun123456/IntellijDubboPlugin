@@ -55,16 +55,17 @@ public class GenerateContentUtils {
 
 //        String pacakgeName = userChooseDependency.getGroupId() + "." + userChooseDependency.getArtifactId();
 
-        String providerDir = dir + userChooseDependency.getProviderArtifactId();
+        String providerDir = dir + "/" + userChooseDependency.getProviderArtifactId();
 
-        String apiDir = dir + userChooseDependency.getApiArtifactId();
+        String apiDir = dir + "/" + userChooseDependency.getApiArtifactId();
 
-        String apiPackageName = userChooseDependency.getGroupId()+"."+userChooseDependency.getApiArtifactId();
+        String apiPackageName = userChooseDependency.getGroupId() + "." + userChooseDependency.getApiArtifactId();
 
-        String providerPackageName = userChooseDependency.getGroupId()+"."+userChooseDependency.getProviderArtifactId();
+        String providerPackageName = userChooseDependency.getGroupId() + "." + userChooseDependency.getProviderArtifactId();
 
         //write files to parent pom
-        if (userChooseDependency.isUseGradle()) {
+        boolean useGradle = userChooseDependency.isUseGradle();
+        if (useGradle) {
             // TODO: 7/17/2018 should check the gralde file for multiple module
             writeText(new File(dir, "build.gradle"), TemplateUtils.processToString("gradle.ftl", null));
         } else {
@@ -75,39 +76,36 @@ public class GenerateContentUtils {
         String codeLocation = language;
 
         try {
-            VfsUtil.createDirectories(providerDir + "/src/main/java");
-            VfsUtil.createDirectories(providerDir + "/src/main/resources");
-            VfsUtil.createDirectories(providerDir + "/src/test/java");
+            new File(providerDir + "/src/main/java").mkdirs();
+            new File(providerDir + "/src/main/resources").mkdirs();
+            new File(providerDir + "/src/test/java");
 
-            VfsUtil.createDirectories(apiDir + "/src/main/java");
-            VfsUtil.createDirectories(apiDir + "/src/main/resources");
-            VfsUtil.createDirectories(apiDir + "/src/test/java");
+            new File(apiDir + "/src/main/java").mkdirs();
+            new File(apiDir + "/src/main/resources").mkdirs();
+            new File(apiDir + "/src/test/java").mkdirs();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
+        String extension = ("kotlin".equals(language) ? "kt" : language);
+
         //generate files for api
-        if (userChooseDependency.isUseGradle()) {
-            // TODO: 7/17/2018 need support gradle project
-//            writeText(new File(dir, "build.gradle"), TemplateUtils.processToString("gradle.ftl", null));
-
-        } else {
-            String process = TemplateRenderer.INSTANCE.process("starter-pom-api.xml", model);
-            writeText(new File(dir, "pom.xml"), process);
-        }
-
-
+        generateFilesForApiModule(model, apiDir, apiPackageName, useGradle, codeLocation, extension);
 
 
         //generate pom.xml for provider files
 
-        if (userChooseDependency.isUseGradle()) {
+        genreateFilesForProviderModule(model, applicationName, providerDir, providerPackageName, useGradle, codeLocation, extension);
+    }
+
+    private static void genreateFilesForProviderModule(Map<String, Object> model, String applicationName, String providerDir, String providerPackageName, boolean useGradle, String codeLocation, String extension) {
+        if (useGradle) {
             // TODO: 7/17/2018 need support gradle project
 //            writeText(new File(dir, "build.gradle"), TemplateUtils.processToString("gradle.ftl", null));
 
         } else {
             String process = TemplateRenderer.INSTANCE.process("starter-pom-provider.xml", model);
-            writeText(new File(dir, "pom.xml"), process);
+            writeText(new File(providerDir, "pom.xml"), process);
         }
 
         File providerSrc = new File(new File(providerDir, "src/main/" + codeLocation),
@@ -115,13 +113,35 @@ public class GenerateContentUtils {
         providerSrc.mkdirs();
 
         //create the main class for springboot application
-        String extension = ("kotlin".equals(language) ? "kt" : language);
+
         write(new File(providerSrc, applicationName + "." + extension),
                 "Application." + extension, model);
+
+        //将DemoService生成进去
+        write(new File(providerSrc, "DemoServiceImpl." + extension), "DemoServiceImpl." + extension, model);
 
         File resources = new File(providerDir, "src/main/resources");
         resources.mkdirs();
         write(new File(resources, "application.properties"), "application.properties", model);
+    }
+
+    private static void generateFilesForApiModule(Map<String, Object> model, String apiDir, String apiPackageName, boolean useGradle, String codeLocation, String extension) {
+        if (useGradle) {
+            // TODO: 7/17/2018 need support gradle project
+//            writeText(new File(dir, "build.gradle"), TemplateUtils.processToString("gradle.ftl", null));
+
+        } else {
+            String process = TemplateRenderer.INSTANCE.process("starter-pom-api.xml", model);
+            writeText(new File(apiDir, "pom.xml"), process);
+        }
+
+
+        File apiSrc = new File(new File(apiDir, "src/main/" + codeLocation),
+                apiPackageName.replace(".", "/"));
+        apiSrc.mkdirs();
+
+        //write DemoService to api folder
+        write(new File(apiSrc, "DemoService." + extension), "DemoService." + extension, model);
     }
 
     private static void generateFilesForOnlyCustomerCode(String dir, UserChooseDependency userChooseDependency, String language, Map<String, Object> model) {
@@ -174,6 +194,12 @@ public class GenerateContentUtils {
         if (userChooseDependency.isHasProvider()) {
             model.put("apiArtifactId", userChooseDependency.getApiArtifactId());
             model.put("providerArtifactId", userChooseDependency.getProviderArtifactId());
+
+            model.put("dubboPackageName", userChooseDependency.getGroupId() + "." + userChooseDependency.getApiArtifactId());
+
+            model.put("serviceSimpleName", "DemoService");
+
+            model.put("dubboProviderPackageName", userChooseDependency.getGroupId() + "." + userChooseDependency.getProviderArtifactId());
 
 
             if (userChooseDependency.isUseMaven()) {

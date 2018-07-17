@@ -1,6 +1,8 @@
-package {{dubboPackageName}};
+package {{dubboProviderPackageName}};
 
 import java.util.Date;
+
+import {{dubboPackageName}}.{{serviceSimpleName}}
 
 import com.alibaba.dubbo.config.annotation.Service;
 
