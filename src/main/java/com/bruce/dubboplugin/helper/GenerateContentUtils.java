@@ -3,6 +3,7 @@ package com.bruce.dubboplugin.helper;
 import com.bruce.dubboplugin.dto.Dependency;
 import com.bruce.dubboplugin.dto.GenerateContentContext;
 import com.bruce.dubboplugin.dto.UserChooseDependency;
+import com.github.rjeschke.txtmark.Run;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.intellij.openapi.vfs.VfsUtil;
@@ -117,8 +118,10 @@ public class GenerateContentUtils {
         write(new File(providerSrc, applicationName + "." + extension),
                 "Application." + extension, model);
 
+        new File(providerSrc+"/provider").mkdirs();
+
         //将DemoService生成进去
-        write(new File(providerSrc, "DemoServiceImpl." + extension), "DemoServiceImpl." + extension, model);
+        write(new File(providerSrc+"/provider", "DemoServiceImpl." + extension), "DemoServiceImpl." + extension, model);
 
         File resources = new File(providerDir, "src/main/resources");
         resources.mkdirs();
@@ -199,7 +202,7 @@ public class GenerateContentUtils {
 
             model.put("serviceSimpleName", "DemoService");
 
-            model.put("dubboProviderPackageName", userChooseDependency.getGroupId() + "." + userChooseDependency.getProviderArtifactId());
+            model.put("dubboProviderPackageName", userChooseDependency.getGroupId() + "." + userChooseDependency.getProviderArtifactId()+".provider");
 
 
             if (userChooseDependency.isUseMaven()) {
@@ -318,7 +321,7 @@ public class GenerateContentUtils {
 
     private static void writeText(File target, String body) {
         try {
-            IOUtils.write(body, new FileOutputStream(target));
+            IOUtils.write(body, new FileOutputStream(target), "UTF-8");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
