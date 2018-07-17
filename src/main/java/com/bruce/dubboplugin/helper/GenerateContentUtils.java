@@ -5,9 +5,7 @@ import com.bruce.dubboplugin.dto.GenerateContentContext;
 import com.bruce.dubboplugin.dto.UserChooseDependency;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VfsUtil;
-import com.intellij.openapi.vfs.VirtualFile;
 import org.apache.commons.io.IOUtils;
 
 import java.io.File;
@@ -42,7 +40,6 @@ public class GenerateContentUtils {
         }
 
 
-
 //        generateGitIgnore();
 //        root.refresh(false, true);
 
@@ -54,7 +51,77 @@ public class GenerateContentUtils {
     }
 
     private static void generateFilesForProviderCode(String dir, UserChooseDependency userChooseDependency, String language, Map<String, Object> model) {
+        String applicationName = userChooseDependency.getArtifactId() + "Application";
 
+//        String pacakgeName = userChooseDependency.getGroupId() + "." + userChooseDependency.getArtifactId();
+
+        String providerDir = dir + userChooseDependency.getProviderArtifactId();
+
+        String apiDir = dir + userChooseDependency.getApiArtifactId();
+
+        String apiPackageName = userChooseDependency.getGroupId()+"."+userChooseDependency.getApiArtifactId();
+
+        String providerPackageName = userChooseDependency.getGroupId()+"."+userChooseDependency.getProviderArtifactId();
+
+        //write files to parent pom
+        if (userChooseDependency.isUseGradle()) {
+            // TODO: 7/17/2018 should check the gralde file for multiple module
+            writeText(new File(dir, "build.gradle"), TemplateUtils.processToString("gradle.ftl", null));
+        } else {
+            String process = TemplateRenderer.INSTANCE.process("parent-pom.xml", model);
+            writeText(new File(dir, "pom.xml"), process);
+        }
+
+        String codeLocation = language;
+
+        try {
+            VfsUtil.createDirectories(providerDir + "/src/main/java");
+            VfsUtil.createDirectories(providerDir + "/src/main/resources");
+            VfsUtil.createDirectories(providerDir + "/src/test/java");
+
+            VfsUtil.createDirectories(apiDir + "/src/main/java");
+            VfsUtil.createDirectories(apiDir + "/src/main/resources");
+            VfsUtil.createDirectories(apiDir + "/src/test/java");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        //generate files for api
+        if (userChooseDependency.isUseGradle()) {
+            // TODO: 7/17/2018 need support gradle project
+//            writeText(new File(dir, "build.gradle"), TemplateUtils.processToString("gradle.ftl", null));
+
+        } else {
+            String process = TemplateRenderer.INSTANCE.process("starter-pom-api.xml", model);
+            writeText(new File(dir, "pom.xml"), process);
+        }
+
+
+
+
+        //generate pom.xml for provider files
+
+        if (userChooseDependency.isUseGradle()) {
+            // TODO: 7/17/2018 need support gradle project
+//            writeText(new File(dir, "build.gradle"), TemplateUtils.processToString("gradle.ftl", null));
+
+        } else {
+            String process = TemplateRenderer.INSTANCE.process("starter-pom-provider.xml", model);
+            writeText(new File(dir, "pom.xml"), process);
+        }
+
+        File providerSrc = new File(new File(providerDir, "src/main/" + codeLocation),
+                providerPackageName.replace(".", "/"));
+        providerSrc.mkdirs();
+
+        //create the main class for springboot application
+        String extension = ("kotlin".equals(language) ? "kt" : language);
+        write(new File(providerSrc, applicationName + "." + extension),
+                "Application." + extension, model);
+
+        File resources = new File(providerDir, "src/main/resources");
+        resources.mkdirs();
+        write(new File(resources, "application.properties"), "application.properties", model);
     }
 
     private static void generateFilesForOnlyCustomerCode(String dir, UserChooseDependency userChooseDependency, String language, Map<String, Object> model) {
@@ -66,7 +133,7 @@ public class GenerateContentUtils {
         if (userChooseDependency.isUseGradle()) {
             writeText(new File(dir, "build.gradle"), TemplateUtils.processToString("gradle.ftl", null));
         } else {
-            String process = TemplateRenderer.INSTANCE.process("starter-pom-customer.xml", model);
+            String process = TemplateRenderer.INSTANCE.process("start-pom-customer.xml", model);
             writeText(new File(dir, "pom.xml"), process);
         }
 
@@ -104,14 +171,24 @@ public class GenerateContentUtils {
             model.put("hasWeb", true);
         }
 
-        if (userChooseDependency.isUseMaven()) {
-            model.put("mavenBuild", true);
-            model.put("mavenParentGroupId", "org.springframework.boot");
-            model.put("mavenParentArtifactId", "spring-boot-starter-parent");
-            // TODO: 7/14/2018 need config version from user input
-            model.put("mavenParentVersion", "1.5.14.RELEASE");
-            model.put("includeSpringBootBom", false);
+        if (userChooseDependency.isHasProvider()) {
+            model.put("apiArtifactId", userChooseDependency.getApiArtifactId());
+            model.put("providerArtifactId", userChooseDependency.getProviderArtifactId());
+
+
+            if (userChooseDependency.isUseMaven()) {
+                model.put("mavenBuild", true);
+                model.put("mavenParentGroupId", userChooseDependency.getGroupId());
+                model.put("mavenParentArtifactId", userChooseDependency.getArtifactId());
+                // TODO: 7/14/2018 need config version from user input
+                model.put("mavenParentVersion", "0.0.1-SNAPSHOT");
+                model.put("includeSpringBootBom", false);
+            }
         }
+
+        model.put("dubboSpringbootVersion", "2.0.0");
+
+
         List<Dependency> dependencies = extractDependencyFrom(userChooseDependency.getDependencyList());
 
         model.put("compileDependencies",

@@ -4,12 +4,19 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>{{groupId}}</groupId>
-    <artifactId>{{artifactId}}</artifactId>
+    <artifactId>{{providerArtifactId}}</artifactId>
     <version>{{version}}</version>
     <packaging>{{packaging}}</packaging>
 
     <name>{{name}}</name>
     <description>{{description}}</description>
+
+    <parent>
+        <groupId>{{mavenParentGroupId}}</groupId>
+        <artifactId>{{mavenParentArtifactId}}</artifactId>
+        <version>{{mavenParentVersion}}</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
 
     <properties>
         {{#buildPropertiesMaven}}
@@ -21,12 +28,6 @@
         </properties>
 
 <dependencies>
-
-<dependency>
-    <groupId>com.alibaba.spring.boot</groupId>
-    <artifactId>dubbo-spring-boot-starter</artifactId>
-    <version>{{#dubboSpringbootVersion}}</version>
-</dependency>
 {{#compileDependencies}}
 <dependency>
     <groupId>{{groupId}}</groupId>
@@ -120,7 +121,22 @@
 </dependency>
 {{/testDependencies}}
 </dependencies>
+        {{#hasBoms}}
 
+<dependencyManagement>
+<dependencies>
+    {{#resolvedBoms}}
+    <dependency>
+        <groupId>{{groupId}}</groupId>
+        <artifactId>{{artifactId}}</artifactId>
+        <version>{{versionToken}}</version>
+        <type>pom</type>
+        <scope>import</scope>
+    </dependency>
+    {{/resolvedBoms}}
+</dependencies>
+</dependencyManagement>
+        {{/hasBoms}}
 
 <build>
 {{#kotlin}}
