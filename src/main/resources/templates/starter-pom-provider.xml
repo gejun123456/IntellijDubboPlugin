@@ -22,8 +22,8 @@
         {{#buildPropertiesMaven}}
         <{{key}}>{{#value}}{{.}}{{/value}}</{{key}}>
             {{/buildPropertiesMaven}}
-            {{#buildPropertiesVersions}}<{{key}}>{{#value}}{{.}}{{/value}}</{{key}}>
-        {{/buildPropertiesVersions}}
+            {{#buildPropertiesVersions}}
+        <{{key}}>{{#value}}{{.}}{{/value}}</{{key}}> {{/buildPropertiesVersions}}
     </properties>
 
 <dependencies>
@@ -142,86 +142,86 @@
 </dependencyManagement>
         {{/hasBoms}}
 
-<build>
-{{#kotlin}}
-<sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
-<testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
-{{/kotlin}}
-<plugins>
-    <plugin>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-    </plugin>
-    {{#groovy}}
-    <plugin>
-        <groupId>org.codehaus.gmavenplus</groupId>
-        <artifactId>gmavenplus-plugin</artifactId>
-        <version>1.5</version>
-        <executions>
-            <execution>
-                <goals>
-                    <goal>addSources</goal>
-                    <goal>addTestSources</goal>
-                    <goal>generateStubs</goal>
-                    <goal>compile</goal>
-                    <goal>testGenerateStubs</goal>
-                    <goal>testCompile</goal>
-                    <goal>removeStubs</goal>
-                    <goal>removeTestStubs</goal>
-                </goals>
-            </execution>
-        </executions>
-    </plugin>
-    {{/groovy}}
+    <build>
     {{#kotlin}}
-    <plugin>
-        <artifactId>kotlin-maven-plugin</artifactId>
-        <groupId>org.jetbrains.kotlin</groupId>
-        {{^kotlinSupport}}
-        <version>${kotlin.version}</version>
-        {{/kotlinSupport}}
-        <configuration>
-            <args>
-                <arg>-Xjsr305=strict</arg>
-            </args>
-            <compilerPlugins>
-                <plugin>spring</plugin>
-            </compilerPlugins>
-            {{^kotlinSupport}}
-            {{#java8OrLater}}
-            <jvmTarget>1.8</jvmTarget>
-            {{/java8OrLater}}
-            {{/kotlinSupport}}
-        </configuration>
-        {{^kotlinSupport}}
-        <executions>
-            <execution>
-                <id>compile</id>
-                <phase>compile</phase>
-                <goals>
-                    <goal>compile</goal>
-                </goals>
-            </execution>
-            <execution>
-                <id>test-compile</id>
-                <phase>test-compile</phase>
-                <goals>
-                    <goal>test-compile</goal>
-                </goals>
-            </execution>
-        </executions>
-        {{/kotlinSupport}}
-        <dependencies>
-            <dependency>
-                <groupId>org.jetbrains.kotlin</groupId>
-                <artifactId>kotlin-maven-allopen</artifactId>
-                <version>${kotlin.version}</version>
-            </dependency>
-        </dependencies>
-    </plugin>
+    <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
+    <testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
     {{/kotlin}}
-</plugins>
-</build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            {{#groovy}}
+            <plugin>
+                <groupId>org.codehaus.gmavenplus</groupId>
+                <artifactId>gmavenplus-plugin</artifactId>
+                <version>1.5</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>addSources</goal>
+                            <goal>addTestSources</goal>
+                            <goal>generateStubs</goal>
+                            <goal>compile</goal>
+                            <goal>testGenerateStubs</goal>
+                            <goal>testCompile</goal>
+                            <goal>removeStubs</goal>
+                            <goal>removeTestStubs</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            {{/groovy}}
+            {{#kotlin}}
+            <plugin>
+                <artifactId>kotlin-maven-plugin</artifactId>
+                <groupId>org.jetbrains.kotlin</groupId>
+                {{^kotlinSupport}}
+                <version>${kotlin.version}</version>
+                {{/kotlinSupport}}
+                <configuration>
+                    <args>
+                        <arg>-Xjsr305=strict</arg>
+                    </args>
+                    <compilerPlugins>
+                        <plugin>spring</plugin>
+                    </compilerPlugins>
+                    {{^kotlinSupport}}
+                    {{#java8OrLater}}
+                    <jvmTarget>1.8</jvmTarget>
+                    {{/java8OrLater}}
+                    {{/kotlinSupport}}
+                </configuration>
+                {{^kotlinSupport}}
+                <executions>
+                    <execution>
+                        <id>compile</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>test-compile</id>
+                        <phase>test-compile</phase>
+                        <goals>
+                            <goal>test-compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                {{/kotlinSupport}}
+                <dependencies>
+                    <dependency>
+                        <groupId>org.jetbrains.kotlin</groupId>
+                        <artifactId>kotlin-maven-allopen</artifactId>
+                        <version>${kotlin.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            {{/kotlin}}
+        </plugins>
+    </build>
         {{#hasRepositories}}
 
 <repositories>

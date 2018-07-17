@@ -16,11 +16,12 @@
         <{{key}}>{{#value}}{{.}}{{/value}}</{{key}}>
             {{/buildPropertiesMaven}}
             {{#buildPropertiesVersions}}
-    <{{key}}>{{#value}}{{.}}{{/value}}</{{key}}>
+        <{{key}}>{{#value}}{{.}}{{/value}}</{{key}}>
         {{/buildPropertiesVersions}}
-        </properties>
+    </properties>
 
-<modules>
-<module>apiArtifactId</module>
-<module>providerArtifactId</module>
-</modules>
+    <modules>
+        <module>apiArtifactId</module>
+        <module>providerArtifactId</module>
+    </modules>
+</project>

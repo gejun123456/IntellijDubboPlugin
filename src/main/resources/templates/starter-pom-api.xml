@@ -25,3 +25,5 @@
             {{#buildPropertiesVersions}}
         <{{key}}>{{#value}}{{.}}{{/value}}</{{key}}> {{/buildPropertiesVersions}}
     </properties>
+
+</project>
