@@ -9,9 +9,16 @@ import com.google.common.collect.Maps;
 import com.google.gson.Gson;
 import com.intellij.ide.util.projectWizard.ModuleWizardStep;
 import com.intellij.ide.util.projectWizard.WizardContext;
+import com.intellij.openapi.options.ConfigurationException;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.ui.Messages;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -44,6 +51,7 @@ public class DubboModuleWizardStep extends ModuleWizardStep {
     private JTextField demoApiTextField;
     private JTextField demoProviderTextField;
     private JCheckBox pageHelperCheckBox;
+    private JCheckBox webTomcatCheckBox;
 
 
     private List<JCheckBox> myJCheckBoxList = Lists.newArrayList();
@@ -68,6 +76,7 @@ public class DubboModuleWizardStep extends ModuleWizardStep {
         addForOneCheckBox(commonsLang3CheckBox, DependencyConstant.COMMON_LANGS_3);
         addForOneCheckBox(retryCheckBox, DependencyConstant.SPRING_RETRY);
         addForOneCheckBox(zookeeperCheckBox, DependencyConstant.ZOOKEEPER);
+        addForOneCheckBox(webTomcatCheckBox, DependencyConstant.WEB_TOMCAT);
 //        addForOneCheckBox(notImplementedCheckBox, DependencyConstant.);
     }
 
@@ -79,7 +88,41 @@ public class DubboModuleWizardStep extends ModuleWizardStep {
 
     @Override
     public JComponent getComponent() {
+        providerCheckBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (providerCheckBox.isSelected()) {
+                    demoApiTextField.setEnabled(true);
+                    demoProviderTextField.setEnabled(true);
+                } else {
+                    demoApiTextField.setEnabled(false);
+                    demoProviderTextField.setEnabled(false);
+                }
+            }
+        });
+
+        artifactIdText.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                onArtifactIdChange();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                onArtifactIdChange();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                onArtifactIdChange();
+            }
+        });
         return myPanel;
+    }
+
+    private void onArtifactIdChange() {
+        demoApiTextField.setText(artifactIdText.getText() + "-api");
+        demoProviderTextField.setText(artifactIdText.getText() + "-provider");
     }
 
     @Override
@@ -116,14 +159,33 @@ public class DubboModuleWizardStep extends ModuleWizardStep {
 
         dependency.setBootVersion((String) bootVersionCombox.getSelectedItem());
         for (JCheckBox jCheckBox : myJCheckBoxList) {
-            if(jCheckBox.isSelected()) {
+            if (jCheckBox.isSelected()) {
                 String s = myJcheckBoxToDependencyMap.get(jCheckBox);
                 dependencyList.add(s);
             }
         }
+        if (providerCheckBox.isSelected()) {
+            dependency.setHasProvider(true);
+            dependency.setApiArtifactId(artifactIdText.getText());
+            dependency.setProviderArtifactId(artifactIdText.getText());
+        }
 
+        if (webTomcatCheckBox.isSelected()) {
+            dependency.setHasWebSupport(true);
+        }
         dependency.setGroupId(groupIdText.getText());
         dependency.setArtifactId(artifactIdText.getText());
         myBuilder.setUserChooseDependency(dependency);
+    }
+
+    @Override
+    public boolean validate() throws ConfigurationException {
+        if (!providerCheckBox.isSelected() && !cosumerCheckBox.isSelected()) {
+            throw new ConfigurationException("provider and consumer should selected at least one", "validate fail");
+        }
+
+//        if(providerCheckBox.isSelected()){
+//        }
+        return true;
     }
 }

@@ -22,4 +22,12 @@ public class UserChooseDependency {
 
     private List<String> dependencyList;
 
+    private boolean hasProvider;
+
+    private String apiArtifactId;
+
+    private String providerArtifactId;
+
+    private boolean hasWebSupport;
+
 }

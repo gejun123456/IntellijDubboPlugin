@@ -7,6 +7,10 @@ import javax.annotation.PostConstruct;
 import com.alibaba.dubbo.config.annotation.Reference;
 import {{dubboServiceName}};
 {{/isDubboClient}}
+{{^hasWeb}}
+import java.util.concurrent.CountDownLatch;
+{{/hasWeb}}
+
 
 {{applicationImports}}
 
@@ -18,13 +22,17 @@ public class {{applicationName}} {
   	private {{serviceSimpleName}} demoService;
 	{{/isDubboClient}}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) {{^hasWeb}}throws InterruptedException{{/hasWeb}}{
 		{{#isDubboServer}}{{#embeddedZookeeper}}
 		// start embedded zookeeper server
 		new EmbeddedZooKeeper(2181, false).start();
 
 		{{/embeddedZookeeper}}{{/isDubboServer}}
 		SpringApplication.run({{applicationName}}.class, args);
+
+		{{^hasWeb}}
+		new CountDownLatch(1).await(); //hold住应用，防止provider退出
+		{{/hasWeb}}
 	}
 	
 	{{#isDubboClient}}

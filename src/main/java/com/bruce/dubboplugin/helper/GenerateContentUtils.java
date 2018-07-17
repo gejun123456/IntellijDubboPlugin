@@ -33,7 +33,31 @@ public class GenerateContentUtils {
             language = "kotlin";
         }
 
+        if (!userChooseDependency.isHasProvider()) {
+            generateFilesForOnlyCustomerCode(dir, userChooseDependency, language, model);
+            return;
+        } else {
+            generateFilesForProviderCode(dir, userChooseDependency, language, model);
+            return;
+        }
 
+
+
+//        generateGitIgnore();
+//        root.refresh(false, true);
+
+//        if (userChooseDependency.isUseMaven()) {
+//            List<VirtualFile> pomFiles = MavenUtil.streamPomFiles(project, project.getBaseDir()).collect(Collectors.toList());
+//            MavenProjectsManager.getInstance(project).addManagedFilesOrUnignore(pomFiles);
+//        }
+
+    }
+
+    private static void generateFilesForProviderCode(String dir, UserChooseDependency userChooseDependency, String language, Map<String, Object> model) {
+
+    }
+
+    private static void generateFilesForOnlyCustomerCode(String dir, UserChooseDependency userChooseDependency, String language, Map<String, Object> model) {
         String applicationName = userChooseDependency.getArtifactId() + "Application";
 
         String pacakgeName = userChooseDependency.getGroupId() + "." + userChooseDependency.getArtifactId();
@@ -42,12 +66,11 @@ public class GenerateContentUtils {
         if (userChooseDependency.isUseGradle()) {
             writeText(new File(dir, "build.gradle"), TemplateUtils.processToString("gradle.ftl", null));
         } else {
-            String process = TemplateRenderer.INSTANCE.process("starter-pom.xml", model);
+            String process = TemplateRenderer.INSTANCE.process("starter-pom-customer.xml", model);
             writeText(new File(dir, "pom.xml"), process);
         }
 
         String codeLocation = language;
-
 
         try {
             VfsUtil.createDirectories(dir + "/src/main/java");
@@ -69,16 +92,6 @@ public class GenerateContentUtils {
         File resources = new File(dir, "src/main/resources");
         resources.mkdirs();
         write(new File(resources, "application.properties"), "application.properties", model);
-
-
-//        generateGitIgnore();
-//        root.refresh(false, true);
-
-//        if (userChooseDependency.isUseMaven()) {
-//            List<VirtualFile> pomFiles = MavenUtil.streamPomFiles(project, project.getBaseDir()).collect(Collectors.toList());
-//            MavenProjectsManager.getInstance(project).addManagedFilesOrUnignore(pomFiles);
-//        }
-
     }
 
     private static Map<String, Object> resolveModel(UserChooseDependency userChooseDependency) {
@@ -86,6 +99,10 @@ public class GenerateContentUtils {
         model.put("war", false);
 
         model.put("kotlinSupport", false);
+
+        if (userChooseDependency.isHasWebSupport()) {
+            model.put("hasWeb", true);
+        }
 
         if (userChooseDependency.isUseMaven()) {
             model.put("mavenBuild", true);

@@ -19,4 +19,6 @@ public class DependencyConstant {
 
     public static final String ZOOKEEPER = "zookeeper";
     public static final String DUBBO = "dubbo";
+
+    public static final String WEB_TOMCAT = "webtomcat";
 }
