@@ -16,192 +16,192 @@
         <{{key}}>{{#value}}{{.}}{{/value}}</{{key}}>
             {{/buildPropertiesMaven}}
             {{#buildPropertiesVersions}}
-    <{{key}}>{{#value}}{{.}}{{/value}}</{{key}}>
+        <{{key}}>{{#value}}{{.}}{{/value}}</{{key}}>
         {{/buildPropertiesVersions}}
-        </properties>
+    </properties>
 
-<dependencies>
+    <dependencies>
 
-<dependency>
-    <groupId>com.alibaba.spring.boot</groupId>
-    <artifactId>dubbo-spring-boot-starter</artifactId>
-    <version>{{dubboSpringbootVersion}}</version>
-</dependency>
-{{#compileDependencies}}
-<dependency>
-    <groupId>{{groupId}}</groupId>
-    <artifactId>{{artifactId}}</artifactId>
-    {{#version}}
-    <version>{{version}}</version>
-    {{/version}}
-    {{#type}}
-    <type>{{type}}</type>
-    {{/type}}
-</dependency>
-{{/compileDependencies}}
-{{#groovy}}
-<dependency>
-    <groupId>org.codehaus.groovy</groupId>
-    <artifactId>groovy</artifactId>
-</dependency>
-{{/groovy}}
-{{#kotlin}}
-<dependency>
-    <groupId>org.jetbrains.kotlin</groupId>
-    <artifactId>{{kotlinStdlibArtifactId}}</artifactId>
-    {{^kotlinSupport}}
-    <version>${kotlin.version}</version>
-    {{/kotlinSupport}}
-</dependency>
-<dependency>
-    <groupId>org.jetbrains.kotlin</groupId>
-    <artifactId>kotlin-reflect</artifactId>
-    {{^kotlinSupport}}
-    <version>${kotlin.version}</version>
-    {{/kotlinSupport}}
-</dependency>
-{{/kotlin}}
-
-{{#runtimeDependencies}}
-<dependency>
-    <groupId>{{groupId}}</groupId>
-    <artifactId>{{artifactId}}</artifactId>
-    {{#version}}
-    <version>{{version}}</version>
-    {{/version}}
-    <scope>runtime</scope>
-    {{#type}}
-    <type>{{type}}</type>
-    {{/type}}
-</dependency>
-{{/runtimeDependencies}}
-{{#compileOnlyDependencies}}
-<dependency>
-    <groupId>{{groupId}}</groupId>
-    <artifactId>{{artifactId}}</artifactId>
-    {{#version}}
-    <version>{{version}}</version>
-    {{/version}}
-    <optional>true</optional>
-    {{#type}}
-    <type>{{type}}</type>
-    {{/type}}
-</dependency>
-{{/compileOnlyDependencies}}
-{{#providedDependencies}}
-<dependency>
-    <groupId>{{groupId}}</groupId>
-    <artifactId>{{artifactId}}</artifactId>
-    {{#version}}
-    <version>{{version}}</version>
-    {{/version}}
-    <scope>provided</scope>
-    {{#type}}
-    <type>{{type}}</type>
-    {{/type}}
-</dependency>
-{{/providedDependencies}}
-<dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-test</artifactId>
-    <scope>test</scope>
-</dependency>
-{{#testDependencies}}
-<dependency>
-    <groupId>{{groupId}}</groupId>
-    <artifactId>{{artifactId}}</artifactId>
-    {{#version}}
-    <version>{{version}}</version>
-    {{/version}}
-    <scope>test</scope>
-    {{#type}}
-    <type>{{type}}</type>
-    {{/type}}
-</dependency>
-{{/testDependencies}}
-</dependencies>
-
-
-<build>
-{{#kotlin}}
-<sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
-<testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
-{{/kotlin}}
-<plugins>
-    <plugin>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-    </plugin>
-    {{#groovy}}
-    <plugin>
-        <groupId>org.codehaus.gmavenplus</groupId>
-        <artifactId>gmavenplus-plugin</artifactId>
-        <version>1.5</version>
-        <executions>
-            <execution>
-                <goals>
-                    <goal>addSources</goal>
-                    <goal>addTestSources</goal>
-                    <goal>generateStubs</goal>
-                    <goal>compile</goal>
-                    <goal>testGenerateStubs</goal>
-                    <goal>testCompile</goal>
-                    <goal>removeStubs</goal>
-                    <goal>removeTestStubs</goal>
-                </goals>
-            </execution>
-        </executions>
-    </plugin>
-    {{/groovy}}
-    {{#kotlin}}
-    <plugin>
-        <artifactId>kotlin-maven-plugin</artifactId>
-        <groupId>org.jetbrains.kotlin</groupId>
-        {{^kotlinSupport}}
-        <version>${kotlin.version}</version>
-        {{/kotlinSupport}}
-        <configuration>
-            <args>
-                <arg>-Xjsr305=strict</arg>
-            </args>
-            <compilerPlugins>
-                <plugin>spring</plugin>
-            </compilerPlugins>
+        <dependency>
+            <groupId>com.alibaba.spring.boot</groupId>
+            <artifactId>dubbo-spring-boot-starter</artifactId>
+            <version>{{dubboSpringbootVersion}}</version>
+        </dependency>
+        {{#compileDependencies}}
+        <dependency>
+            <groupId>{{groupId}}</groupId>
+            <artifactId>{{artifactId}}</artifactId>
+            {{#version}}
+            <version>{{version}}</version>
+            {{/version}}
+            {{#type}}
+            <type>{{type}}</type>
+            {{/type}}
+        </dependency>
+        {{/compileDependencies}}
+        {{#groovy}}
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy</artifactId>
+        </dependency>
+        {{/groovy}}
+        {{#kotlin}}
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>{{kotlinStdlibArtifactId}}</artifactId>
             {{^kotlinSupport}}
-            {{#java8OrLater}}
-            <jvmTarget>1.8</jvmTarget>
-            {{/java8OrLater}}
+            <version>${kotlin.version}</version>
             {{/kotlinSupport}}
-        </configuration>
-        {{^kotlinSupport}}
-        <executions>
-            <execution>
-                <id>compile</id>
-                <phase>compile</phase>
-                <goals>
-                    <goal>compile</goal>
-                </goals>
-            </execution>
-            <execution>
-                <id>test-compile</id>
-                <phase>test-compile</phase>
-                <goals>
-                    <goal>test-compile</goal>
-                </goals>
-            </execution>
-        </executions>
-        {{/kotlinSupport}}
-        <dependencies>
-            <dependency>
-                <groupId>org.jetbrains.kotlin</groupId>
-                <artifactId>kotlin-maven-allopen</artifactId>
-                <version>${kotlin.version}</version>
-            </dependency>
-        </dependencies>
-    </plugin>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-reflect</artifactId>
+            {{^kotlinSupport}}
+            <version>${kotlin.version}</version>
+            {{/kotlinSupport}}
+        </dependency>
+        {{/kotlin}}
+
+        {{#runtimeDependencies}}
+        <dependency>
+            <groupId>{{groupId}}</groupId>
+            <artifactId>{{artifactId}}</artifactId>
+            {{#version}}
+            <version>{{version}}</version>
+            {{/version}}
+            <scope>runtime</scope>
+            {{#type}}
+            <type>{{type}}</type>
+            {{/type}}
+        </dependency>
+        {{/runtimeDependencies}}
+        {{#compileOnlyDependencies}}
+        <dependency>
+            <groupId>{{groupId}}</groupId>
+            <artifactId>{{artifactId}}</artifactId>
+            {{#version}}
+            <version>{{version}}</version>
+            {{/version}}
+            <optional>true</optional>
+            {{#type}}
+            <type>{{type}}</type>
+            {{/type}}
+        </dependency>
+        {{/compileOnlyDependencies}}
+        {{#providedDependencies}}
+        <dependency>
+            <groupId>{{groupId}}</groupId>
+            <artifactId>{{artifactId}}</artifactId>
+            {{#version}}
+            <version>{{version}}</version>
+            {{/version}}
+            <scope>provided</scope>
+            {{#type}}
+            <type>{{type}}</type>
+            {{/type}}
+        </dependency>
+        {{/providedDependencies}}
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        {{#testDependencies}}
+        <dependency>
+            <groupId>{{groupId}}</groupId>
+            <artifactId>{{artifactId}}</artifactId>
+            {{#version}}
+            <version>{{version}}</version>
+            {{/version}}
+            <scope>test</scope>
+            {{#type}}
+            <type>{{type}}</type>
+            {{/type}}
+        </dependency>
+        {{/testDependencies}}
+    </dependencies>
+
+
+    <build>
+    {{#kotlin}}
+    <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
+    <testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
     {{/kotlin}}
-</plugins>
-</build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            {{#groovy}}
+            <plugin>
+                <groupId>org.codehaus.gmavenplus</groupId>
+                <artifactId>gmavenplus-plugin</artifactId>
+                <version>1.5</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>addSources</goal>
+                            <goal>addTestSources</goal>
+                            <goal>generateStubs</goal>
+                            <goal>compile</goal>
+                            <goal>testGenerateStubs</goal>
+                            <goal>testCompile</goal>
+                            <goal>removeStubs</goal>
+                            <goal>removeTestStubs</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            {{/groovy}}
+            {{#kotlin}}
+            <plugin>
+                <artifactId>kotlin-maven-plugin</artifactId>
+                <groupId>org.jetbrains.kotlin</groupId>
+                {{^kotlinSupport}}
+                <version>${kotlin.version}</version>
+                {{/kotlinSupport}}
+                <configuration>
+                    <args>
+                        <arg>-Xjsr305=strict</arg>
+                    </args>
+                    <compilerPlugins>
+                        <plugin>spring</plugin>
+                    </compilerPlugins>
+                    {{^kotlinSupport}}
+                    {{#java8OrLater}}
+                    <jvmTarget>1.8</jvmTarget>
+                    {{/java8OrLater}}
+                    {{/kotlinSupport}}
+                </configuration>
+                {{^kotlinSupport}}
+                <executions>
+                    <execution>
+                        <id>compile</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>test-compile</id>
+                        <phase>test-compile</phase>
+                        <goals>
+                            <goal>test-compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                {{/kotlinSupport}}
+                <dependencies>
+                    <dependency>
+                        <groupId>org.jetbrains.kotlin</groupId>
+                        <artifactId>kotlin-maven-allopen</artifactId>
+                        <version>${kotlin.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            {{/kotlin}}
+        </plugins>
+    </build>
         {{#hasRepositories}}
 
 <repositories>
@@ -240,4 +240,4 @@
         {{/isRelease}}
 
 
-        </project>
+</project>

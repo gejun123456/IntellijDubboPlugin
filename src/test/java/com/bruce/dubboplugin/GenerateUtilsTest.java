@@ -45,4 +45,30 @@ public class GenerateUtilsTest {
         return directoryToBeDeleted.delete();
     }
 
+
+    @Test
+    public void testGenerateFileAsConsumerWihtNoDependencyTest(){
+        GenerateContentContext contentContext = new GenerateContentContext();
+        UserChooseDependency userChooseDependency = new UserChooseDependency();
+        userChooseDependency.setUseMaven(true);
+        userChooseDependency.setUseGradle(false);
+        userChooseDependency.setBootVersion("1.5.7");
+        userChooseDependency.setGroupId("com.example.lala");
+        userChooseDependency.setArtifactId("demo");
+        userChooseDependency.setUseJava(true);
+        userChooseDependency.setUseKotlin(false);
+        userChooseDependency.setDependencyList(Lists.newArrayList());
+        userChooseDependency.setHasProvider(false);
+//        userChooseDependency.setApiArtifactId("demoApi");
+//        userChooseDependency.setProviderArtifactId("demoProvider");
+        userChooseDependency.setHasWebSupport(false);
+        contentContext.setUserChooseDependency(
+                userChooseDependency);
+        String rootPath = "D:\\code\\mygitlab\\dubboPlugin\\src\\test\\resources\\testFiles";
+        deleteDirectory(new File(rootPath));
+        contentContext.setRootPath(rootPath);
+        GenerateContentUtils.generateFiles(
+                contentContext);
+    }
+
 }

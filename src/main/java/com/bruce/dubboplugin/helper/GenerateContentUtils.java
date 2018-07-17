@@ -160,9 +160,9 @@ public class GenerateContentUtils {
         String codeLocation = language;
 
         try {
-            VfsUtil.createDirectories(dir + "/src/main/java");
-            VfsUtil.createDirectories(dir + "/src/main/resources");
-            VfsUtil.createDirectories(dir + "/src/test/java");
+            new File(dir + "/src/main/java").mkdirs();
+            new File(dir + "/src/main/resources").mkdirs();
+            new File(dir + "/src/test/java").mkdirs();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
