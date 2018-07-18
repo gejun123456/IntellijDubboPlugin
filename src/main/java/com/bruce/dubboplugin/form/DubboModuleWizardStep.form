@@ -31,7 +31,6 @@
             <properties>
               <model>
                 <item value="Maven"/>
-                <item value="Gradle"/>
               </model>
             </properties>
           </component>
@@ -50,7 +49,6 @@
             <properties>
               <model>
                 <item value="Java"/>
-                <item value="Kotlin"/>
               </model>
             </properties>
           </component>

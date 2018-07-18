@@ -3,10 +3,8 @@ package com.bruce.dubboplugin.helper;
 import com.bruce.dubboplugin.dto.Dependency;
 import com.bruce.dubboplugin.dto.GenerateContentContext;
 import com.bruce.dubboplugin.dto.UserChooseDependency;
-import com.github.rjeschke.txtmark.Run;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.intellij.openapi.vfs.VfsUtil;
 import org.apache.commons.io.IOUtils;
 
 import java.io.File;
@@ -118,10 +116,10 @@ public class GenerateContentUtils {
         write(new File(providerSrc, applicationName + "." + extension),
                 "Application." + extension, model);
 
-        new File(providerSrc+"/provider").mkdirs();
+        new File(providerSrc + "/provider").mkdirs();
 
         //将DemoService生成进去
-        write(new File(providerSrc+"/provider", "DemoServiceImpl." + extension), "DemoServiceImpl." + extension, model);
+        write(new File(providerSrc + "/provider", "DemoServiceImpl." + extension), "DemoServiceImpl." + extension, model);
 
         File resources = new File(providerDir, "src/main/resources");
         resources.mkdirs();
@@ -202,7 +200,7 @@ public class GenerateContentUtils {
 
             model.put("serviceSimpleName", "DemoService");
 
-            model.put("dubboProviderPackageName", userChooseDependency.getGroupId() + "." + userChooseDependency.getProviderArtifactId()+".provider");
+            model.put("dubboProviderPackageName", userChooseDependency.getGroupId() + "." + userChooseDependency.getProviderArtifactId() + ".provider");
 
 
             if (userChooseDependency.isUseMaven()) {
@@ -309,7 +307,7 @@ public class GenerateContentUtils {
         List<Dependency> dependencies = Lists.newArrayList();
         dependencies.add(Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter").build());
         for (String s : dependencyList) {
-            dependencies.add(DependencyHelper.findDependency(s));
+            dependencies.addAll(DependencyHelper.findDependency(s));
         }
         return dependencies;
     }
