@@ -288,7 +288,7 @@
               </grid>
             </constraints>
             <properties>
-              <text value="demo-api"/>
+              <text value="demoApi"/>
             </properties>
           </component>
           <component id="3ba50" class="javax.swing.JLabel">
@@ -306,7 +306,7 @@
               </grid>
             </constraints>
             <properties>
-              <text value="demo-provider"/>
+              <text value="demoProvider"/>
             </properties>
           </component>
         </children>

@@ -24,6 +24,8 @@
             {{/buildPropertiesMaven}}
             {{#buildPropertiesVersions}}
         <{{key}}>{{#value}}{{.}}{{/value}}</{{key}}> {{/buildPropertiesVersions}}
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
     <dependencies>
@@ -31,6 +33,11 @@
             <groupId>com.alibaba.spring.boot</groupId>
             <artifactId>dubbo-spring-boot-starter</artifactId>
             <version>{{dubboSpringbootVersion}}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>{{groupId}}</groupId>
+            <artifactId>{{apiArtifactId}}</artifactId>
         </dependency>
         {{#compileDependencies}}
         <dependency>
