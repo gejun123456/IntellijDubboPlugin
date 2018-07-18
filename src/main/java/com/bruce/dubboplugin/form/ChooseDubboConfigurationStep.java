@@ -32,6 +32,7 @@ public class ChooseDubboConfigurationStep extends ModuleWizardStep implements Di
         group.add(createNewRadioButton);
         final PreConfig preConfig = new PreConfig();
         preConfig.setDependencies(Lists.newArrayList());
+        myBuilder.setPreConfig(preConfig);
         dubboSpringBootMybatisMysqlRadioButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

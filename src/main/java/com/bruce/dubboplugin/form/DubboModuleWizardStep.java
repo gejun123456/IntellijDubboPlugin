@@ -122,8 +122,8 @@ public class DubboModuleWizardStep extends ModuleWizardStep {
     }
 
     private void onArtifactIdChange() {
-        demoApiTextField.setText(artifactIdText.getText() + "-api");
-        demoProviderTextField.setText(artifactIdText.getText() + "-provider");
+        demoApiTextField.setText(artifactIdText.getText() + "Api");
+        demoProviderTextField.setText(artifactIdText.getText() + "Provider");
     }
 
     @Override
@@ -167,8 +167,8 @@ public class DubboModuleWizardStep extends ModuleWizardStep {
         }
         if (providerCheckBox.isSelected()) {
             dependency.setHasProvider(true);
-            dependency.setApiArtifactId(artifactIdText.getText());
-            dependency.setProviderArtifactId(artifactIdText.getText());
+            dependency.setApiArtifactId(demoApiTextField.getText());
+            dependency.setProviderArtifactId(demoProviderTextField.getText());
         }
 
         if (webTomcatCheckBox.isSelected()) {
