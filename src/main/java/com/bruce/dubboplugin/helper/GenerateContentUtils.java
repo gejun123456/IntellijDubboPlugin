@@ -221,7 +221,7 @@ public class GenerateContentUtils {
         }
 
 
-        model.put("dubboSpringbootVersion", "2.0.0");
+        model.put("dubboSpringbootVersion", "0.2.0");
 
 
         List<Dependency> dependencies = extractDependencyFrom(userChooseDependency.getDependencyList());

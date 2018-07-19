@@ -29,8 +29,9 @@
     </properties>
 
     <dependencies>
+
         <dependency>
-            <groupId>com.alibaba.spring.boot</groupId>
+            <groupId>com.alibaba.boot</groupId>
             <artifactId>dubbo-spring-boot-starter</artifactId>
             <version>{{dubboSpringbootVersion}}</version>
         </dependency>

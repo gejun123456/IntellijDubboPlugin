@@ -5,7 +5,6 @@ import org.springframework.boot.SpringApplication;
 {{#isDubboClient}}
 import javax.annotation.PostConstruct;
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.alibaba.dubbo.spring.boot.annotation.EnableDubboConfiguration;
 import {{dubboServiceName}};
 {{/isDubboClient}}
 {{^hasWeb}}
@@ -15,13 +14,7 @@ import java.util.concurrent.CountDownLatch;
 
 {{applicationImports}}
 {{applicationAnnotations}}
-@EnableDubboConfiguration
 public class {{applicationName}} {
-
-	{{#isDubboClient}}
-	@Reference(version = "{{dubboServiceVersion}}"{{^embeddedZookeeper}}, url = "dubbo://localhost:20880"{{/embeddedZookeeper}})
-  	private {{serviceSimpleName}} demoService;
-	{{/isDubboClient}}
 
 	public static void main(String[] args) {{^hasWeb}}throws InterruptedException{{/hasWeb}}{
 
