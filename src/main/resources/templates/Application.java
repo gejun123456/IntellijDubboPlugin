@@ -5,6 +5,7 @@ import org.springframework.boot.SpringApplication;
 {{#isDubboClient}}
 import javax.annotation.PostConstruct;
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.alibaba.dubbo.spring.boot.annotation.EnableDubboConfiguration;
 import {{dubboServiceName}};
 {{/isDubboClient}}
 {{^hasWeb}}
@@ -13,8 +14,8 @@ import java.util.concurrent.CountDownLatch;
 
 
 {{applicationImports}}
-
 {{applicationAnnotations}}
+@EnableDubboConfiguration
 public class {{applicationName}} {
 
 	{{#isDubboClient}}
