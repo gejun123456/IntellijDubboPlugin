@@ -78,6 +78,7 @@ public class DubboModuleWizardStep extends ModuleWizardStep {
         addForOneCheckBox(zookeeperCheckBox, DependencyConstant.ZOOKEEPER);
         addForOneCheckBox(webTomcatCheckBox, DependencyConstant.WEB_TOMCAT);
         addForOneCheckBox(pageHelperCheckBox,DependencyConstant.PAGE_HELPER);
+        addForOneCheckBox(hikariCheckBox,DependencyConstant.HIKARI);
 //        addForOneCheckBox(notImplementedCheckBox, DependencyConstant.);
     }
 
