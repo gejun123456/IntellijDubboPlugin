@@ -9,4 +9,5 @@ public class TemplateUtilsTest {
         String s = TemplateUtils.processToString("gradle.ftl", null);
         System.out.println(s);
     }
+
 }

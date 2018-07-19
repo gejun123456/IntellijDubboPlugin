@@ -1,4 +1,5 @@
 package com.bruce.dubboplugin.form;
+import com.bruce.dubboplugin.dto.Dependency;
 import com.bruce.dubboplugin.dto.DependencyConstant;
 import com.google.common.collect.Lists;
 
@@ -36,7 +37,8 @@ public class ChooseDubboConfigurationStep extends ModuleWizardStep implements Di
         dubboSpringBootMybatisMysqlRadioButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                preConfig.setDependencies(Lists.newArrayList(DependencyConstant.MYBAITS,DependencyConstant.MYSQL));
+                preConfig.setDependencies(Lists.newArrayList(DependencyConstant.MYBAITS,DependencyConstant.MYSQL
+                ,DependencyConstant.HIKARI,DependencyConstant.ZOOKEEPER,DependencyConstant.PAGE_HELPER));
                 myBuilder.setPreConfig(preConfig);
             }
         });
