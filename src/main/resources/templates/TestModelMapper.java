@@ -7,7 +7,7 @@ import java.util.List;
 import {{MybatisModelQuatifiedName}};
 
 @Mapper
-public interface TestModelDao {
+public interface TestModelMapper {
     int insert(@Param("testModel") TestModel testModel);
 
     int insertSelective(@Param("testModel") TestModel testModel);
