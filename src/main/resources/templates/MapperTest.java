@@ -1,7 +1,7 @@
 package {{packageName}};
 
 import {{MybatisModelQuatifiedName}};
-import {{MybatisMapperQuatifiedName}}
+import {{MybatisMapperQuatifiedName}};
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,6 @@ public class MapperTest {
     @Test
     public void testMapper(){
         TestModel testModel = new TestModel();
-        testModel.setId("hehe");
         testModel.setAge(1);
         testModel.setCreatedAt(new Date());
         testModel.setUpdatedAt(new Date());
