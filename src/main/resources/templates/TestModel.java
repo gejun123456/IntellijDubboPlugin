@@ -20,7 +20,7 @@ public class TestModel {
     private Date updatedAt;
 
     {{^dep_lombok}}
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 

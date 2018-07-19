@@ -137,6 +137,10 @@ public class GenerateContentUtils {
             resourceMapperSRc.mkdirs();
 
             write(new File(resourceMapperSRc, "TestModelMapper.xml"), "TestModelMapper.xml", model);
+
+            write(new File(resourceSrc, "schema.sql"), "schema.sql", model);
+
+            write(new File(testSrc, "MapperTest.java"), "MapperTest.java", model);
         }
 
 
@@ -239,11 +243,11 @@ public class GenerateContentUtils {
 
         }
 
-        if(userChooseDependency.getDependencyList().contains(DependencyConstant.MYBAITS)){
-            model.put("mybatisModelPackage",userChooseDependency.getGroupId() + "." + userChooseDependency.getProviderArtifactId() + ".model");
-            model.put("MybatisMapperPackage",userChooseDependency.getGroupId() + "." + userChooseDependency.getProviderArtifactId() + ".mapper");
-            model.put("MybatisModelQuatifiedName",userChooseDependency.getGroupId() + "." + userChooseDependency.getProviderArtifactId() + ".model.TestModel");
-            model.put("MybatisMapperQuatifiedName",userChooseDependency.getGroupId() + "." + userChooseDependency.getProviderArtifactId() + ".mapper.TestModelMapper");
+        if (userChooseDependency.getDependencyList().contains(DependencyConstant.MYBAITS)) {
+            model.put("mybatisModelPackage", userChooseDependency.getGroupId() + "." + userChooseDependency.getProviderArtifactId() + ".model");
+            model.put("MybatisMapperPackage", userChooseDependency.getGroupId() + "." + userChooseDependency.getProviderArtifactId() + ".mapper");
+            model.put("MybatisModelQuatifiedName", userChooseDependency.getGroupId() + "." + userChooseDependency.getProviderArtifactId() + ".model.TestModel");
+            model.put("MybatisMapperQuatifiedName", userChooseDependency.getGroupId() + "." + userChooseDependency.getProviderArtifactId() + ".mapper.TestModelMapper");
         }
 
 
