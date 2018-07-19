@@ -1,6 +1,7 @@
 package com.bruce.dubboplugin.helper;
 
 import com.bruce.dubboplugin.dto.Dependency;
+import com.bruce.dubboplugin.dto.DependencyConstant;
 import com.bruce.dubboplugin.dto.GenerateContentContext;
 import com.bruce.dubboplugin.dto.UserChooseDependency;
 import com.google.common.collect.Lists;
@@ -74,17 +75,6 @@ public class GenerateContentUtils {
 
         String codeLocation = language;
 
-        try {
-            new File(providerDir + "/src/main/java").mkdirs();
-            new File(providerDir + "/src/main/resources").mkdirs();
-            new File(providerDir + "/src/test/java");
-
-            new File(apiDir + "/src/main/java").mkdirs();
-            new File(apiDir + "/src/main/resources").mkdirs();
-            new File(apiDir + "/src/test/java").mkdirs();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
 
         String extension = ("kotlin".equals(language) ? "kt" : language);
 
@@ -94,10 +84,12 @@ public class GenerateContentUtils {
 
         //generate pom.xml for provider files
 
-        genreateFilesForProviderModule(model, applicationName, providerDir, providerPackageName, useGradle, codeLocation, extension);
+        genreateFilesForProviderModule(model, applicationName, providerDir, providerPackageName, useGradle, codeLocation, extension, userChooseDependency);
     }
 
-    private static void genreateFilesForProviderModule(Map<String, Object> model, String applicationName, String providerDir, String providerPackageName, boolean useGradle, String codeLocation, String extension) {
+    private static void genreateFilesForProviderModule(Map<String, Object> model, String applicationName, String providerDir, String providerPackageName, boolean useGradle, String codeLocation, String extension, UserChooseDependency userChooseDependency) {
+        File resourceSrc = new File(providerDir + "/src/main/resources");
+        resourceSrc.mkdirs();
         if (useGradle) {
             // TODO: 7/17/2018 need support gradle project
 //            writeText(new File(dir, "build.gradle"), TemplateUtils.processToString("gradle.ftl", null));
@@ -109,7 +101,13 @@ public class GenerateContentUtils {
 
         File providerSrc = new File(new File(providerDir, "src/main/" + codeLocation),
                 providerPackageName.replace(".", "/"));
+
+
         providerSrc.mkdirs();
+
+        File testSrc = new File(new File(providerDir + "/src/test/" + codeLocation), providerPackageName.replace(".", "/"));
+        testSrc.mkdirs();
+
 
         //create the main class for springboot application
 
@@ -124,9 +122,30 @@ public class GenerateContentUtils {
         File resources = new File(providerDir, "src/main/resources");
         resources.mkdirs();
         write(new File(resources, "application.properties"), "application.properties", model);
+
+        if (userChooseDependency.getDependencyList().contains(DependencyConstant.MYBAITS)) {
+            File mapperSrc = new File(providerSrc + "/mapper");
+            mapperSrc.mkdirs();
+            write(new File(mapperSrc, "TestModelMapper.java"), "TestModelMapper.java", model);
+
+            File modelSrc = new File(providerSrc + "/model");
+            modelSrc.mkdirs();
+            write(new File(modelSrc, "TestModel.java"), "TestModel.java", model);
+
+
+            File resourceMapperSRc = new File(resourceSrc + "/mapper");
+            resourceMapperSRc.mkdirs();
+
+            write(new File(resourceMapperSRc, "TestModelMapper.xml"), "TestModelMapper.xml", model);
+        }
+
+
     }
 
     private static void generateFilesForApiModule(Map<String, Object> model, String apiDir, String apiPackageName, boolean useGradle, String codeLocation, String extension) {
+        new File(apiDir + "/src/main/java").mkdirs();
+        new File(apiDir + "/src/main/resources").mkdirs();
+        new File(apiDir + "/src/test/java");
         if (useGradle) {
             // TODO: 7/17/2018 need support gradle project
 //            writeText(new File(dir, "build.gradle"), TemplateUtils.processToString("gradle.ftl", null));
@@ -218,6 +237,13 @@ public class GenerateContentUtils {
             model.put("isDubboClient", true);
             model.put("packageName", userChooseDependency.getGroupId() + "." + userChooseDependency.getArtifactId());
 
+        }
+
+        if(userChooseDependency.getDependencyList().contains(DependencyConstant.MYBAITS)){
+            model.put("mybatisModelPackage",userChooseDependency.getGroupId() + "." + userChooseDependency.getProviderArtifactId() + ".model");
+            model.put("MybatisMapperPackage",userChooseDependency.getGroupId() + "." + userChooseDependency.getProviderArtifactId() + ".mapper");
+            model.put("MybatisModelQuatifiedName",userChooseDependency.getGroupId() + "." + userChooseDependency.getProviderArtifactId() + ".model.TestModel");
+            model.put("MybatisMapperQuatifiedName",userChooseDependency.getGroupId() + "." + userChooseDependency.getProviderArtifactId() + ".mapper.TestModelMapper");
         }
 
 
