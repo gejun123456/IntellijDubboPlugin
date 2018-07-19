@@ -134,22 +134,17 @@
         </dependency>
         {{/testDependencies}}
     </dependencies>
-            {{#hasBoms}}
-
     <dependencyManagement>
-    <dependencies>
-        {{#resolvedBoms}}
-        <dependency>
-            <groupId>{{groupId}}</groupId>
-            <artifactId>{{artifactId}}</artifactId>
-            <version>{{versionToken}}</version>
-            <type>pom</type>
-            <scope>import</scope>
-        </dependency>
-        {{/resolvedBoms}}
-    </dependencies>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>{{bootVersion}}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
     </dependencyManagement>
-            {{/hasBoms}}
 
     <build>
     {{#kotlin}}
