@@ -210,13 +210,26 @@ public class GenerateContentUtils {
                 // TODO: 7/14/2018 need config version from user input
                 model.put("mavenParentVersion", "0.0.1-SNAPSHOT");
                 model.put("includeSpringBootBom", false);
+                model.put("packageName", userChooseDependency.getGroupId() + "." + userChooseDependency.getProviderArtifactId());
             }
+
+            model.put("isDubboServer", true);
+        } else {
+            model.put("isDubboClient", true);
+            model.put("packageName", userChooseDependency.getGroupId() + "." + userChooseDependency.getArtifactId());
+
         }
+
 
         model.put("dubboSpringbootVersion", "2.0.0");
 
 
         List<Dependency> dependencies = extractDependencyFrom(userChooseDependency.getDependencyList());
+
+
+        for (String s : userChooseDependency.getDependencyList()) {
+            model.put("dep_" + s, true);
+        }
 
         model.put("compileDependencies",
                 filterDependencies(dependencies, Dependency.SCOPE_COMPILE));
@@ -286,7 +299,6 @@ public class GenerateContentUtils {
             model.put("language", "kotlin");
         }
         model.put("name", userChooseDependency.getArtifactId());
-        model.put("packageName", userChooseDependency.getGroupId() + "." + userChooseDependency.getArtifactId());
         model.put("packaging", "jar");
 //        model.put("parameters","{host=localhost:9097, connection=keep-alive, upgrade-insecure-requests=1, user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36, accept=text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8, referer=http://localhost:9097/, accept-encoding=gzip, deflate, br, accept-language=en,zh-CN;q=0.9,zh;q=0.8,ja;q=0.7,zh-TW;q=0.6,nl;q=0.5}");
         model.put("qos", "false");

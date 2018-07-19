@@ -23,11 +23,7 @@ public class {{applicationName}} {
 	{{/isDubboClient}}
 
 	public static void main(String[] args) {{^hasWeb}}throws InterruptedException{{/hasWeb}}{
-		{{#isDubboServer}}{{#embeddedZookeeper}}
-		// start embedded zookeeper server
-		new EmbeddedZooKeeper(2181, false).start();
 
-		{{/embeddedZookeeper}}{{/isDubboServer}}
 		SpringApplication.run({{applicationName}}.class, args);
 
 		{{^hasWeb}}
