@@ -18,9 +18,7 @@ public class DependencyHelper {
         put(DependencyConstant.REDIS, Lists.newArrayList(Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-data-redis").build()));
         put(DependencyConstant.RABBIT_MQ, Lists.newArrayList(Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-amqp").build()));
         put(DependencyConstant.SPRING_RETRY, Lists.newArrayList(Dependency.builder().groupId("org.springframework.retry").artifactId("spring-retry").version("1.3.0.RELEASE").build()));
-        put(DependencyConstant.ZOOKEEPER, Lists.newArrayList(Dependency.builder().groupId("org.apache.zookeeper").artifactId("zookeeper").version("3.4.11").build()
-        ,Dependency.builder().groupId("com.101tec").artifactId("zkclient").version("0.10").build()
-        ,Dependency.builder().groupId("org.apache.curator").artifactId("curator-framework").version("2.12.0").build()));
+        put(DependencyConstant.ZOOKEEPER, Lists.newArrayList());
         put(DependencyConstant.WEB_TOMCAT, Lists.newArrayList(Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-web").build()));
         put(DependencyConstant.PAGE_HELPER, Lists.newArrayList(Dependency.builder().groupId("com.github.pagehelper").artifactId("pagehelper-spring-boot-starter").version("1.2.5").build()));
         put(DependencyConstant.COMMON_LANGS_3, Lists.newArrayList(Dependency.builder().groupId("org.apache.commons").artifactId("commons-lang3").version("3.7").build()));
