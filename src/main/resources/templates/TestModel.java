@@ -9,7 +9,7 @@ import java.util.Date;
 @Data
 {{/dep_lombok}}
 public class TestModel {
-    private String id;
+    private Integer id;
 
     private Integer age;
 
@@ -24,7 +24,7 @@ public class TestModel {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

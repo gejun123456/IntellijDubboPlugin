@@ -3,7 +3,7 @@
 <mapper namespace="{{MybatisMapperQuatifiedName}}">
     <!--auto generated Code-->
     <resultMap id="BaseResultMap" type="{{MybatisModelQuatifiedName}}">
-        <result column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="id" property="id" jdbcType="INTEGER"/>
         <result column="age" property="age" jdbcType="INTEGER"/>
         <result column="user_name" property="userName" jdbcType="VARCHAR"/>
         <result column="created_at" property="createdAt" jdbcType="TIMESTAMP"/>
@@ -28,7 +28,7 @@
             created_at,
             updated_at
         ) VALUES (
-            #{testModel.id,jdbcType=VARCHAR},
+            #{testModel.id,jdbcType=INTEGER},
             #{testModel.age,jdbcType=INTEGER},
             #{testModel.userName,jdbcType=VARCHAR},
             #{testModel.createdAt,jdbcType=TIMESTAMP},
@@ -48,7 +48,7 @@
         </trim>
         VALUES
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="testModel.id!=null">#{testModel.id,jdbcType=VARCHAR},
+            <if test="testModel.id!=null">#{testModel.id,jdbcType=INTEGER},
             </if>
             <if test="testModel.age!=null">#{testModel.age,jdbcType=INTEGER},
             </if>
@@ -68,7 +68,7 @@
         )VALUES
         <foreach collection="testModels" item="testModel" index="index" separator=",">
             (
-            #{testModel.id,jdbcType=VARCHAR},
+            #{testModel.id,jdbcType=INTEGER},
             #{testModel.age,jdbcType=INTEGER},
             #{testModel.userName,jdbcType=VARCHAR},
             #{testModel.createdAt,jdbcType=TIMESTAMP},
@@ -81,7 +81,7 @@
     <update id="update">
         UPDATE test_model
         <set>
-            <if test="testModel.id != null"> id= #{testModel.id,jdbcType=VARCHAR},</if>
+            <if test="testModel.id != null"> id= #{testModel.id,jdbcType=INTEGER},</if>
             <if test="testModel.age != null"> age= #{testModel.age,jdbcType=INTEGER},</if>
             <if test="testModel.userName != null"> user_name= #{testModel.userName,jdbcType=VARCHAR},</if>
             <if test="testModel.createdAt != null"> created_at= #{testModel.createdAt,jdbcType=TIMESTAMP},</if>
