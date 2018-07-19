@@ -25,7 +25,7 @@
     <dependencies>
 
         <dependency>
-            <groupId>com.alibaba.spring.boot</groupId>
+            <groupId>com.alibaba.boot</groupId>
             <artifactId>dubbo-spring-boot-starter</artifactId>
             <version>{{dubboSpringbootVersion}}</version>
         </dependency>
@@ -122,6 +122,17 @@
         </dependency>
         {{/testDependencies}}
     </dependencies>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>{{bootVersion}}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 
     <build>

@@ -25,11 +25,4 @@ public class {{applicationName}} {
 		{{/hasWeb}}
 	}
 	
-	{{#isDubboClient}}
-    @PostConstruct
-    public void init() {
-    	String sayHello = demoService.sayHello("world");
-    	System.err.println(sayHello);
-    }
-    {{/isDubboClient}}
 }
