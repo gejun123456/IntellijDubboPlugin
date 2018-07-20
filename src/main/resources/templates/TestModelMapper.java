@@ -15,4 +15,8 @@ public interface TestModelMapper {
     int insertList(@Param("testModels") List<TestModel> testModels);
 
     int update(@Param("testModel") TestModel testModel);
+
+    {{#dep_pagehelper}}
+    List<TestModel> findByIdGreaterThan(@Param("minId")Integer minId);
+    {{/dep_pagehelper}}
 }

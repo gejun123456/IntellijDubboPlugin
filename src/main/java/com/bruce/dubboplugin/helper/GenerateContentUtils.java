@@ -141,6 +141,12 @@ public class GenerateContentUtils {
             write(new File(resourceSrc, "schema.sql"), "schema.sql", model);
 
             write(new File(testSrc, "MapperTest.java"), "MapperTest.java", model);
+
+            if(userChooseDependency.getDependencyList().contains(DependencyConstant.PAGE_HELPER)){
+                File serviceSrc = new File(providerSrc + "/service");
+                serviceSrc.mkdirs();
+                write(new File(serviceSrc, "TestModelService.java"), "TestModelService.java", model);
+            }
         }
 
 
@@ -248,6 +254,10 @@ public class GenerateContentUtils {
             model.put("MybatisMapperPackage", userChooseDependency.getGroupId() + "." + userChooseDependency.getProviderArtifactId() + ".mapper");
             model.put("MybatisModelQuatifiedName", userChooseDependency.getGroupId() + "." + userChooseDependency.getProviderArtifactId() + ".model.TestModel");
             model.put("MybatisMapperQuatifiedName", userChooseDependency.getGroupId() + "." + userChooseDependency.getProviderArtifactId() + ".mapper.TestModelMapper");
+
+            if (userChooseDependency.getDependencyList().contains(DependencyConstant.PAGE_HELPER)) {
+                model.put("providerServicePackage",userChooseDependency.getGroupId() + "." + userChooseDependency.getProviderArtifactId() + ".service");
+            }
         }
 
 
