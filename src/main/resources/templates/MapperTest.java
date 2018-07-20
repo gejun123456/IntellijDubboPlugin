@@ -2,6 +2,9 @@ package {{packageName}};
 
 import {{MybatisModelQuatifiedName}};
 import {{MybatisMapperQuatifiedName}};
+{{#dep_pagehelper}}
+import {{MybatisServiceQuatifiedName}};
+{{/dep_pagehelper}}
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +24,11 @@ public class MapperTest {
 
     @Autowired
     private TestModelMapper testModelMapper;
+
+    {{#dep_pagehelper}}
+    @Autowired
+    private TestModelService testModelService;
+    {{/dep_pagehelper}}
     @Test
     public void testMapper(){
         TestModel testModel = new TestModel();

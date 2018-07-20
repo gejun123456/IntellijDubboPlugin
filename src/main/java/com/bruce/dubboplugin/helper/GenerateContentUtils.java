@@ -257,6 +257,7 @@ public class GenerateContentUtils {
 
             if (userChooseDependency.getDependencyList().contains(DependencyConstant.PAGE_HELPER)) {
                 model.put("providerServicePackage",userChooseDependency.getGroupId() + "." + userChooseDependency.getProviderArtifactId() + ".service");
+                model.put("MybatisServiceQuatifiedName",userChooseDependency.getGroupId() + "." + userChooseDependency.getProviderArtifactId() + ".service.TestModelService");
             }
         }
 
