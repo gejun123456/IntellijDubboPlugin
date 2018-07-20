@@ -66,7 +66,7 @@
             </constraints>
             <properties>
               <model>
-                <item value="1.5.14"/>
+                <item value="2.0.3"/>
               </model>
             </properties>
           </component>
