@@ -4,8 +4,8 @@
 
 ## 功能
 
-- 快速构建一个dubbo+springboot的项目
-- 可选其他依赖 如mybatis pageHelper hikari 并且配置好 生成testcase 可立即运行 
+- 快速构建一个dubbo+springboot的项目 包含ApiModule 和 providerModule
+- 可选其他依赖 如mybatis pageHelper hikari 并且配置好 生成代码例子和testcase 可立即运行 
 
 
 ## 目前支持的依赖
@@ -35,11 +35,9 @@
 
 
 - 第三步操作
-
 ![](http://ogyxv3y5w.bkt.clouddn.com/third.png)
 
 - 生成项目结构
-
 ![](http://ogyxv3y5w.bkt.clouddn.com/projectStructure.png)
 
 - 生成的主类
@@ -64,6 +62,8 @@
 
 ## 安装 
 
+插件支持Intellij 2018.1版本及以上版本
+
 **直接下载**
 - download[`lastest plugin zip`](http://ogyxv3y5w.bkt.clouddn.com/dubboPlugin-1.0.zip) -> <kbd>Preferences(Settings)</kbd> > <kbd>Plugins</kbd> > <kbd>Install plugin from disk...</kbd>
 
@@ -73,6 +73,15 @@
 - 如果使用了zookeeper 请搭建好zookeeper服务器
 - 启动前 先修改生成项目 application.properties中的数据库连接配置 改成自己的数据库配置
 - 如果要跑生成例子中的testcase 请将项目下的schema.sql 在数据库中执行下
+
+该插件生成的例子为：
+
+
+## 联系我
+
+点击链接加入群聊【Dubbo插件交流群】：https://jq.qq.com/?_wv=1027&k=5EmQNpR
+
+群号：796916754
 
 
 
