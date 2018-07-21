@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'org.jetbrains.intellij' version '0.3.4'
     id 'org.jetbrains.kotlin.jvm' version '1.2.51'
+    id "com.github.hierynomus.license" version "0.14.0"
 }
 
 group 'com.bruce.intellijplugin'
@@ -32,4 +33,10 @@ intellij {
     version 'IU-2018.1'
     updateSinceUntilBuild false
     plugins 'Maven'
+}
+
+
+license{
+    header rootProject.file('mylicense/header.txt')
+    exclude("**/TemplateRenderer.java")
 }
