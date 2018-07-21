@@ -14,8 +14,8 @@ repositories {
 }
 
 dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.6'
+    // https://mvnrepository.com/artifact/commons-io/commons-io
+    compile group: 'commons-io', name: 'commons-io', version: '2.6'
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.0'
     // https://mvnrepository.com/artifact/com.samskivert/jmustache
     compile group: 'com.samskivert', name: 'jmustache', version: '1.14'
@@ -30,5 +30,6 @@ compileTestKotlin {
 }
 intellij {
     version 'IU-2018.1'
+    updateSinceUntilBuild false
     plugins 'Maven'
 }
