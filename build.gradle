@@ -5,7 +5,7 @@ plugins {
 }
 
 group 'com.bruce.intellijplugin'
-version '1.0-SNAPSHOT'
+version '1.0'
 
 sourceCompatibility = 1.8
 
@@ -31,9 +31,4 @@ compileTestKotlin {
 intellij {
     version 'IU-2018.1'
     plugins 'Maven'
-}
-patchPluginXml {
-    changeNotes """
-      Add change notes here.<br>
-      <em>most HTML tags may be used</em>"""
 }
