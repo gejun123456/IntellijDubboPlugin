@@ -27,35 +27,35 @@
 
 ## 截图
 
-- 第一步操作
+- 第一步操作  
 ![](http://ogyxv3y5w.bkt.clouddn.com/start.png)
 
-- 第二步操作
+- 第二步操作  
 ![](http://ogyxv3y5w.bkt.clouddn.com/second.png)
 
 
-- 第三步操作
+- 第三步操作  
 ![](http://ogyxv3y5w.bkt.clouddn.com/third.png)
 
-- 生成项目结构
+- 生成项目结构  
 ![](http://ogyxv3y5w.bkt.clouddn.com/projectStructure.png)
 
-- 生成的主类
+- 生成的主类  
 ![](http://ogyxv3y5w.bkt.clouddn.com/demoApplication.png)
 
-- 生成的dubboProvider类
+- 生成的dubboProvider类  
 ![](http://ogyxv3y5w.bkt.clouddn.com/generateProvider.png)
 
-
-- 生成的mybatis接口例子
+ 
+- 生成的mybatis接口例子  
 ![](http://ogyxv3y5w.bkt.clouddn.com/mybatisExample.png)
 
 
-- 生成的service例子 此处使用了pageHelper
+- 生成的service例子 此处使用了pageHelper  
 ![](http://ogyxv3y5w.bkt.clouddn.com/generateService.png)
 
 
-- 生成的testcase
+- 生成的testcase  
 ![](http://ogyxv3y5w.bkt.clouddn.com/generateTestCase.png)
 
 
