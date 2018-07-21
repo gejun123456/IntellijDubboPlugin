@@ -70,7 +70,7 @@ public class GenerateContentUtils {
         boolean useGradle = userChooseDependency.isUseGradle();
         if (useGradle) {
             // TODO: 7/17/2018 should check the gralde file for multiple module
-            writeText(new File(dir, "build.gradle"), TemplateUtils.processToString("gradle.ftl", null));
+//            writeText(new File(dir, "build.gradle"), TemplateUtils.processToString("gradle.ftl", null));
         } else {
             String process = TemplateRenderer.INSTANCE.process("parent-pom.xml", model);
             writeText(new File(dir, "pom.xml"), process);
@@ -184,7 +184,7 @@ public class GenerateContentUtils {
 
 
         if (userChooseDependency.isUseGradle()) {
-            writeText(new File(dir, "build.gradle"), TemplateUtils.processToString("gradle.ftl", null));
+//            writeText(new File(dir, "build.gradle"), TemplateUtils.processToString("gradle.ftl", null));
         } else {
             String process = TemplateRenderer.INSTANCE.process("start-pom-customer.xml", model);
             writeText(new File(dir, "pom.xml"), process);
