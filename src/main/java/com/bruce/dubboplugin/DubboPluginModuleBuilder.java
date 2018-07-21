@@ -6,6 +6,7 @@ import com.bruce.dubboplugin.dto.UserChooseDependency;
 import com.bruce.dubboplugin.form.ChooseDubboConfigurationStep;
 import com.bruce.dubboplugin.form.DubboModuleWizardStep;
 import com.bruce.dubboplugin.helper.GenerateContentUtils;
+import com.bruce.dubboplugin.helper.IconUtils;
 import com.google.gson.Gson;
 import com.intellij.ide.util.projectWizard.*;
 import com.intellij.openapi.Disposable;
@@ -25,6 +26,7 @@ import com.intellij.openapi.vfs.VirtualFile;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import javax.swing.*;
 import java.io.File;
 import java.util.Collections;
 import java.util.List;
@@ -159,6 +161,10 @@ public class DubboPluginModuleBuilder extends ModuleBuilder implements SourcePat
         this.userChooseDependency = userChooseDependency;
     }
 
+    @Override
+    public Icon getNodeIcon() {
+        return IconUtils.dubbonIcon;
+    }
 
     @Nullable
     @Override
