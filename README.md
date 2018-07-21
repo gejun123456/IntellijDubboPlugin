@@ -74,15 +74,12 @@
 - 启动前 先修改生成项目 application.properties中的数据库连接配置 改成自己的数据库配置
 - 如果要跑生成例子中的testcase 请将项目下的schema.sql 在数据库中执行下
 
-该插件生成的例子为：
+该插件生成的例子为：https://github.com/gejun123456/dubboSpringbootDemo
 
 
 ## 联系我
 
-点击链接加入群聊【Dubbo插件交流群】：https://jq.qq.com/?_wv=1027&k=5EmQNpR
-
-群号：796916754
-
+qq群号：796916754
 
 
 ## 我的其他插件
