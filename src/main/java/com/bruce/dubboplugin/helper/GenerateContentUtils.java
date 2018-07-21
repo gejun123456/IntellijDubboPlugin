@@ -31,6 +31,8 @@ public class GenerateContentUtils {
             language = "kotlin";
         }
 
+        write(new File(dir, ".gitIgnore"), ".gitignore.txt", model);
+
         if (!userChooseDependency.isHasProvider()) {
             generateFilesForOnlyCustomerCode(dir, userChooseDependency, language, model);
             return;
@@ -38,6 +40,7 @@ public class GenerateContentUtils {
             generateFilesForProviderCode(dir, userChooseDependency, language, model);
             return;
         }
+
 
 
 //        generateGitIgnore();
@@ -142,7 +145,7 @@ public class GenerateContentUtils {
 
             write(new File(testSrc, "MapperTest.java"), "MapperTest.java", model);
 
-            if(userChooseDependency.getDependencyList().contains(DependencyConstant.PAGE_HELPER)){
+            if (userChooseDependency.getDependencyList().contains(DependencyConstant.PAGE_HELPER)) {
                 File serviceSrc = new File(providerSrc + "/service");
                 serviceSrc.mkdirs();
                 write(new File(serviceSrc, "TestModelService.java"), "TestModelService.java", model);
@@ -256,8 +259,8 @@ public class GenerateContentUtils {
             model.put("MybatisMapperQuatifiedName", userChooseDependency.getGroupId() + "." + userChooseDependency.getProviderArtifactId() + ".mapper.TestModelMapper");
 
             if (userChooseDependency.getDependencyList().contains(DependencyConstant.PAGE_HELPER)) {
-                model.put("providerServicePackage",userChooseDependency.getGroupId() + "." + userChooseDependency.getProviderArtifactId() + ".service");
-                model.put("MybatisServiceQuatifiedName",userChooseDependency.getGroupId() + "." + userChooseDependency.getProviderArtifactId() + ".service.TestModelService");
+                model.put("providerServicePackage", userChooseDependency.getGroupId() + "." + userChooseDependency.getProviderArtifactId() + ".service");
+                model.put("MybatisServiceQuatifiedName", userChooseDependency.getGroupId() + "." + userChooseDependency.getProviderArtifactId() + ".service.TestModelService");
             }
         }
 
