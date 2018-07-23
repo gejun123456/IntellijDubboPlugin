@@ -64,6 +64,10 @@
 
 插件支持Intellij 2018.1版本及以上版本
 
+**使用 IDE 内置插件系统:**
+- <kbd>Preferences(Settings)</kbd> > <kbd>Plugins</kbd> > <kbd>Browse repositories...</kbd> > <kbd>搜索并找到"Dubbo"</kbd> > <kbd>Install Plugin</kbd>
+
+
 **直接下载**
 - download[`lastest plugin zip`](http://ogyxv3y5w.bkt.clouddn.com/dubboPlugin-1.0.zip) -> <kbd>Preferences(Settings)</kbd> > <kbd>Plugins</kbd> > <kbd>Install plugin from disk...</kbd>
 
