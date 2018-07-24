@@ -1,6 +1,8 @@
 # IntellijDubboPlugin
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![Jetbrains Plugins](https://img.shields.io/jetbrains/plugin/v/10946-a8translate.svg)][plugin]
+[![Downloads](https://img.shields.io/jetbrains/plugin/d/10946.svg?style=flat-square)][plugin]
 
 
 ## 功能
@@ -82,7 +84,7 @@
 该插件生成的例子为：https://github.com/gejun123456/dubboSpringbootDemo
 
 
-## 联系我
+## 插件交流
 
 qq群号：796916754
 
@@ -95,6 +97,9 @@ qq群号：796916754
 
 - StackOverFlow https://github.com/gejun123456/IntellijGoToStackOverFlow
 
+
+
+[plugin]: https://plugins.jetbrains.com/plugin/10946
 
 
 
