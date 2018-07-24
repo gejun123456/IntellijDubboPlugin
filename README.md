@@ -9,13 +9,13 @@
 </div>
 
 
-## features
+## Features
 
 - quickly build a dubbo+springboot project include ApiModule and providerModule
 - you can choose other dependency like mybatis pageHelper hikari, and the plugin will auto generate code example and testcase. 
 
 
-## supported dependencies
+## Supported dependencies
 | dependency name            |  start support version        |
 |----------------------|-------------------  |
 | MYBAITS   |   v1.0              |
@@ -67,7 +67,7 @@
 
 
 
-## install 
+## Install 
 
 the plugin support Intellij version more than or equal to 2018.1
 
@@ -79,7 +79,7 @@ the plugin support Intellij version more than or equal to 2018.1
 - download[`lastest plugin zip`](http://ogyxv3y5w.bkt.clouddn.com/dubboPlugin-1.0.zip) -> <kbd>Preferences(Settings)</kbd> > <kbd>Plugins</kbd> > <kbd>Install plugin from disk...</kbd>
 
 
-## use requirement
+## Requirement
 
 - if you has used with zookeeper, please set up zookeeper server first
 - before start, please config the database config in application.properties to your own config
