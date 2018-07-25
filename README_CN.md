@@ -1,5 +1,7 @@
 # IntellijDubboPlugin
 
+该项目已迁移至 https://github.com/dubbo/intellij-idea-plugin
+
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Jetbrains Plugins](https://img.shields.io/jetbrains/plugin/v/10946-a8translate.svg)][plugin]
 [![Downloads](https://img.shields.io/jetbrains/plugin/d/10946.svg?style=flat-square)][plugin]
